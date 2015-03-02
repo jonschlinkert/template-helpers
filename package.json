@@ -31,8 +31,11 @@
   },
   "dependencies": {
     "any": "^1.0.0",
+    "arr-diff": "^1.0.1",
     "arr-flatten": "^1.0.0",
+    "array-unique": "^0.1.1",
     "async": "^0.9.0",
+    "clone-deep": "^0.1.1",
     "export-files": "^1.1.0",
     "for-in": "^0.1.3",
     "get-value": "^1.0.4",
@@ -42,6 +45,7 @@
     "kind-of": "^1.1.0",
     "lang-map": "^0.3.0",
     "lodash": "^3.3.1",
+    "make-iterator": "^0.1.1",
     "markdown-utils": "^0.3.0",
     "micromatch": "^1.4.2",
     "object-omit": "^1.0.0"
