@@ -44,6 +44,19 @@ template({foo: ['a', 'b', 'c']});
 //=> 'a'
 ```
 
+### Namespacing 
+
+Handlebars and Lo-Dash both allow **dot notation** to be used for referencing helpers. Other engines may allow this too, I'd be happy to add this information to readme if someone wants to do a PR.
+
+**Example**
+
+```js
+<%= path.dirname("a/b/c/d.js") %>
+```
+
+This can be used as a way of working around potential naming conflicts. 
+
+
 ## API
 ### [.first](./lib/arrays.js#L21)
 
@@ -205,7 +218,7 @@ Embed a GitHub Gist with the given `id`.
 <%=  gist("5854601") %>
 ```
 
-### [.any](./lib/collections.js#L17)
+### [.any](./lib/collections.js#L15)
 
 * `value` **{*}**    
 * `target` **{*}**    
@@ -213,39 +226,6 @@ Embed a GitHub Gist with the given `id`.
 
 Returns `true` if `value` exists in the given string, array
 or object. See [any] for documentation.
-<%= apidocs(node_modules('helper-date')) %>
-### [.read](./lib/fs.js#L22)
-
-Read a file from the file system. This helper can be wrapped with other helpers to do more powerful things.
-
-* `fp` **{String}**: Path of the file to read    
-* `returns`: {String}  
-
-```js
-<%= read("foo/bar.txt") %>
-
-// pass the contents to any helper that takes a string
-<%= foo(read("foo/bar.txt")) %>
-```
-
-### [.filesize](./lib/fs.js#L45)
-
-Converts bytes into a nice representation with unit.
-
-* `val` **{String}**: The value to    
-* `returns`: {String}  
-
-```js
-<%= filesize("13661855") %>
-//=> '13.7 MB'
-
-<%= filesize("825399") %>
-//=> '825 KB'
-
-<%= fileSize("1396") %>
-//=> '1 KB'
-```
-
 ### [.glob](./lib/glob.js#L10)
 
 
@@ -262,9 +242,6 @@ the glob pattern or regular expression.
 
 <%= apidocs(node_modules('helper-concat')) %>
 
-<%= apidocs(node_modules('helper-markdown')) %>
-
-<%= apidocs(node_modules('helper-md')) %>
 ### [.add](./lib/math.js#L19)
 
 Return the product of `a` plus `b`.
@@ -369,28 +346,6 @@ Returns the sum of all numbers in the given array.
 //=> '11'
 ```
 
-### [.phoneNumber](./lib/numbers.js#L25)
-
-* `num` **{Number}**: The phone number to format, e.g. `8005551212`    
-* `returns` **{Number}**: Formatted phone number: `(800) 555-1212`  
-
-Output a formatted phone number
-
-### [.randomize](./lib/numbers.js#L56)
-
-Uses [randomatic] to generate a randomized string based on the given parameters.
-
-* `returns`: {String}  
-
-See the [randomatic] docs for the full range of options.
-
-### [.toAbbr](./lib/numbers.js#L69)
-
-* `number` **{String}**    
-* `digits` **{String}**    
-* `returns`: {String}  
-
-Abbreviate numbers to the given number of `digits`.
 ### [.stringify](./lib/objects.js#L33)
 
 * `object` **{Object}**    
@@ -474,9 +429,69 @@ Extend `o` with properties of other `objects`.
 
 Recursively combine the properties of `o` with the
 properties of other `objects`.
-### [.relative](./lib/path.js#L21)
+### [.dirname](./lib/path.js#L20)
 
-Get the relative path from file `a` to file `b`. Typically the file paths would be variables passed on the context.
+Return the dirname for the given `filepath`. Uses the node.js [path] module.
+
+* `filepath` **{String}**    
+* `returns` **{String}**: Returns the directory part of the file path.  
+
+```js
+<%= dirname("a/b/c/d") %>
+//=> 'a/b/c'
+```
+
+### [.basename](./lib/path.js#L38)
+
+Return the basename for the given `filepath`. Uses the node.js [path] module.
+
+* `filepath` **{String}**    
+* `returns` **{String}**: Returns the basename part of the file path.  
+
+```js
+<%= basename("a/b/c/d.js") %>
+//=> 'd.js'
+```
+
+### [.filename](./lib/path.js#L56)
+
+Return the filename for the given `filepath`, excluding extension.
+
+* `filepath` **{String}**    
+* `returns` **{String}**: Returns the file name part of the file path.  
+
+```js
+<%= basename("a/b/c/d.js") %>
+//=> 'd'
+```
+
+### [.extname](./lib/path.js#L74)
+
+Return the file extension for the given `filepath`. Uses the node.js [path] module.
+
+* `filepath` **{String}**    
+* `returns` **{String}**: Returns a file extension  
+
+```js
+<%= extname("foo.js") %>
+//=> '.js'
+```
+
+### [.resolve](./lib/path.js#L92)
+
+Resolves the given paths to an absolute path. Uses the node.js [path] module.
+
+* `filepath` **{String}**    
+* `returns` **{String}**: Returns a resolve  
+
+```js
+<%= resolve('/foo/bar', './baz') %>
+//=> '/foo/bar/baz'
+```
+
+### [.relative](./lib/path.js#L111)
+
+Get the relative path from file `a` to file `b`. Typically `a` and `b` would be variables passed on the context. Uses the node.js [path] module.
 
 * `a` **{String}**: The "from" file path.    
 * `b` **{String}**: The "to" file path.    
@@ -486,148 +501,65 @@ Get the relative path from file `a` to file `b`. Typically the file paths would 
 <%= relative(a, b) %>
 ```
 
-### [.extname](./lib/path.js#L38)
+### [.join](./lib/path.js#L133)
 
-Return the file extension for the given `filepath`.
+Join all arguments together and normalize the resulting `filepath`. Uses the node.js [path] module.
 
-* `fp` **{String}**: File path    
-* `returns` **{String}**: Returns a file extension  
+* `filepaths` **{String}**: List of file paths.    
+* `returns` **{String}**: Returns a single, joined file path.  
 
-```js
-<%= extname("foo.js") %>
-//=> '.js'
-```
-
-### [.capitalize](./lib/string.js#L16)
-
-Capitalize the first word in a sentence.
-
-* `str` **{String}**    
-* `returns`: {String}  
+**Note**: there is also a `join()` array helper, dot notation
+can be used with helpers to differentiate. Example: `<%= path.join() %>`.
 
 ```js
-<%= capitalize("a boring sentence.") %>
-//=> "A boring sentence."
+<%= join("a", "b") %>
+//=> 'a/b'
 ```
 
-### [.capitalizeFirst](./lib/string.js#L30)
+### [.isAbsolute](./lib/path.js#L170)
 
-* `str` **{String}**    
-* `returns`: {String}  
+Determines whether path is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory. Uses the node.js [path] module.
 
-Capitalize the first word in a sentence
+* `filepath` **{String}**    
+* `returns` **{String}**: Returns a resolve  
 
-### [.capitalizeEach](./lib/string.js#L46)
+```js
+// posix
+<%= isAbsolute('/foo/bar') %>
+//=> true
+<%= isAbsolute('/baz/..') %>
+//=> true
+<%= isAbsolute('qux/') %>
+//=> false
+<%= isAbsolute('.') %>
+//=> false
 
-* `str` **{String}**    
-* `returns`: {String}  
-
-Capitalize each word in a sentence.
-
-### [.capitalizeAll](./lib/string.js#L62)
-
-* `str` **{String}**    
-* `returns`: {String}  
-
-Capitalize each word in a sentence (DUPLICATE)
-
-### [.center](./lib/string.js#L85)
-
-* **{String}**: str    
-* **{String}**: spaces    
-* `returns`: {String}  
-
-Center a string using non-breaking spaces
-
-### [.dashify](./lib/string.js#L102)
-
-* **{String}**: str    
-* `returns`: {String}  
-
-Replace periods in string with hyphens.
-
-### [.hyphenate](./lib/string.js#L115)
-
-* **{String}**: str    
-* `returns`: {String}  
-
-Replace spaces in string with hyphens.
-
-### [.lowercase](./lib/string.js#L128)
-
-* **{String}**: str    
-* `returns`: {String}  
-
-Make all letters in the string lowercase
-
-### [.plusify](./lib/string.js#L142)
-
-* **{String}**: str The input string    
-* `returns` **{String}**: Input string with spaces replaced by plus signs  
-
-Replace spaces in string with pluses.
-
-### [.sentence](./lib/string.js#L155)
-
-* **{String}**: str    
-* `returns`: {String}  
-
-Sentence case
-
-### [.titleize](./lib/string.js#L173)
-
-* **{String}**: str    
-* `returns`: {String}  
-
-Title case. "This is Title Case"
-
-### [.count](./lib/string.js#L213)
-
-* **{String}**: str       The haystack    
-* **{String}**: substring The needle    
-* `returns` **{Number}**: The number of times the needle is found in the haystack.  
-
-Return the number of occurrances of a string, within a string
-
-### [.replace](./lib/string.js#L241)
-
-* **{String}**: str    
-* **{String}**: a    
-* **{String}**: b    
-* `returns`: {String}  
-
-Replace occurrences of string "A" with string "B"
-
-### [.ellipsis](./lib/string.js#L257)
-
-* **{String}**: str      The input string.    
-* **{Number}**: limit    The number of characters to limit the string.    
-* **{String}**: append   The string to append if charaters are omitted.    
-* `returns` **{String}**: The truncated string.  
-
-Truncate the input string and removes all HTML tags
-
-### [.truncate](./lib/string.js#L279)
-
-* **{String}**: str    
-* **{String}**: length    
-* **{String}**: omission    
-* `returns`: {String}  
-
-Truncates a string given a specified `length`, providing a
-custom string to denote an `omission`.
+// Windows
+<%= isAbsolute('//server') %>
+//=> true
+<%= isAbsolute('C:/foo/..') %>
+//=> true
+<%= isAbsolute('bar\\baz') %>
+//=> false
+<%= isAbsolute('.') %>
+//=> false
+```
 
 
 ## Run tests
-
-Install dev dependencies:
+Install dev dependencies.
 
 ```bash
 npm i -d && npm test
 ```
 
+
+## Related
+* [handlebars-helpers](https://github.com/assemble/handlebars-helpers): 120+ Handlebars helpers in ~20 categories, for Assemble, YUI, Ghost or any Handlebars project. Includes helpers like {{i18}}, {{markdown}}, {{relative}}, {{extend}}, {{moment}}, and so on.
+
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/jonschlinkert/template-helpers/issues)
+
 
 ## Author
 
@@ -648,7 +580,7 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [ansi-regex]: null
 [ansi-styles]: https://github.com/sindresorhus/ansi-styles
 [any]: https://github.com/jonschlinkert/any
-[argparse]: null
+[argparse]: https://github.com/nodeca/argparse
 [arr-diff]: https://github.com/jonschlinkert/arr-diff
 [arr-filter]: null
 [arr-flatten]: https://github.com/jonschlinkert/arr-flatten
@@ -659,16 +591,13 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [array-uniq]: https://github.com/sindresorhus/array-uniq
 [array-unique]: https://github.com/jonschlinkert/array-unique
 [async]: https://github.com/caolan/async
-[autolinker]: https://github.com/gregjacobs/Autolinker.js
 [balanced-match]: https://github.com/juliangruber/balanced-match
 [benchmark]: http://benchmarkjs.com/
 [benchmarked]: https://github.com/jonschlinkert/benchmarked
 [brace-expansion]: https://github.com/juliangruber/brace-expansion
 [braces]: https://github.com/jonschlinkert/braces
 [chalk]: null
-[clone-deep]: https://github.com/jonschlinkert/clone-deep
 [concat-map]: https://github.com/substack/node-concat-map
-[date\.js]: null
 [debug]: https://github.com/visionmedia/debug
 [delete]: https://github.com/jonschlinkert/delete
 [escape-string-regexp]: https://github.com/sindresorhus/escape-string-regexp
@@ -694,10 +623,6 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [has-ansi]: https://github.com/sindresorhus/has-ansi
 [has-value]: https://github.com/jonschlinkert/has-value
 [helper-concat]: https://github.com/jonschlinkert/helper-concat
-[helper-date]: https://github.com/helpers/helper-date
-[helper-markdown]: https://github.com/helpers/helper-markdown
-[helper-md]: https://github.com/helpers/helper-md
-[highlight\.js]: https://highlightjs.org/
 [inflight]: https://github.com/isaacs/inflight
 [inherits]: https://github.com/isaacs/inherits
 [is-absolute]: https://github.com/jonschlinkert/is-absolute
@@ -706,7 +631,6 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [is-path-cwd]: https://github.com/sindresorhus/is-path-cwd
 [is-path-in-cwd]: https://github.com/sindresorhus/is-path-in-cwd
 [is-path-inside]: https://github.com/sindresorhus/is-path-inside
-[is-plain-object]: https://github.com/jonschlinkert/is-plain-object
 [is-relative]: https://github.com/jonschlinkert/is-relative
 [isobject]: https://github.com/jonschlinkert/isobject
 [js-yaml]: https://github.com/nodeca/js-yaml
@@ -719,8 +643,7 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [markdown-utils]: https://github.com/jonschlinkert/markdown-utils
 [micromatch]: null
 [minimatch]: https://github.com/isaacs/minimatch
-[mixin-object]: null
-[moment]: http://momentjs.com
+[mixin-object]: https://github.com/jonschlinkert/mixin-object
 [ms]: https://github.com/guille/ms.js
 [noncharacters]: https://github.com/jonschlinkert/noncharacters
 [normalize-path]: https://github.com/jonschlinkert/normalize-path
@@ -733,7 +656,6 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [randomatic]: https://github.com/jonschlinkert/randomatic
 [regex-cache]: https://github.com/jonschlinkert/regex-cache
 [relative]: null
-[remarkable]: https://github.com/jonschlinkert/remarkable
 [repeat-element]: https://github.com/jonschlinkert/repeat-element
 [repeat-string]: https://github.com/jonschlinkert/repeat-string
 [rimraf]: https://github.com/isaacs/rimraf
@@ -748,5 +670,6 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [assemble]: https://github.com/assemble/assemble
 [verb]: https://github.com/assemble/verb
 [template]: https://github.com/jonschlinkert/template
+[path]: https://nodejs.org/api/path.html
 
 <!-- deps:helper-reflinks -->
