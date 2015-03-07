@@ -213,6 +213,39 @@ Embed a GitHub Gist with the given `id`.
 
 Returns `true` if `value` exists in the given string, array
 or object. See [any] for documentation.
+<%= apidocs(node_modules('helper-date')) %>
+### [.read](./lib/fs.js#L22)
+
+Read a file from the file system. This helper can be wrapped with other helpers to do more powerful things.
+
+* `fp` **{String}**: Path of the file to read    
+* `returns`: {String}  
+
+```js
+<%= read("foo/bar.txt") %>
+
+// pass the contents to any helper that takes a string
+<%= foo(read("foo/bar.txt")) %>
+```
+
+### [.filesize](./lib/fs.js#L45)
+
+Converts bytes into a nice representation with unit.
+
+* `val` **{String}**: The value to    
+* `returns`: {String}  
+
+```js
+<%= filesize("13661855") %>
+//=> '13.7 MB'
+
+<%= filesize("825399") %>
+//=> '825 KB'
+
+<%= fileSize("1396") %>
+//=> '1 KB'
+```
+
 ### [.glob](./lib/glob.js#L10)
 
 
@@ -229,6 +262,9 @@ the glob pattern or regular expression.
 
 <%= apidocs(node_modules('helper-concat')) %>
 
+<%= apidocs(node_modules('helper-markdown')) %>
+
+<%= apidocs(node_modules('helper-md')) %>
 ### [.add](./lib/math.js#L19)
 
 Return the product of `a` plus `b`.
@@ -333,14 +369,36 @@ Returns the sum of all numbers in the given array.
 //=> '11'
 ```
 
-### [.stringify](./lib/objects.js#L15)
+### [.phoneNumber](./lib/numbers.js#L25)
+
+* `num` **{Number}**: The phone number to format, e.g. `8005551212`    
+* `returns` **{Number}**: Formatted phone number: `(800) 555-1212`  
+
+Output a formatted phone number
+
+### [.randomize](./lib/numbers.js#L56)
+
+Uses [randomatic] to generate a randomized string based on the given parameters.
+
+* `returns`: {String}  
+
+See the [randomatic] docs for the full range of options.
+
+### [.toAbbr](./lib/numbers.js#L69)
+
+* `number` **{String}**    
+* `digits` **{String}**    
+* `returns`: {String}  
+
+Abbreviate numbers to the given number of `digits`.
+### [.stringify](./lib/objects.js#L33)
 
 * `object` **{Object}**    
 * `returns`: {String}  
 
 Stringify an object using `JSON.stringify()`.
 
-### [.hasOwn](./lib/objects.js#L28)
+### [.hasOwn](./lib/objects.js#L46)
 
 * `object` **{Object}**    
 * `key` **{String}**    
@@ -348,21 +406,21 @@ Stringify an object using `JSON.stringify()`.
 
 Returns true if `object` has own property `key`.
 
-### [.get](./lib/objects.js#L40)
+### [.get](./lib/objects.js#L58)
 
 * `object` **{Object}**    
 * `returns`: {String}  
 
 Stringify an object using `JSON.stringify()`.
 
-### [.keys](./lib/objects.js#L52)
+### [.keys](./lib/objects.js#L70)
 
 * `obj` **{Object}**    
 * `returns` **{Array}**: Keys from `obj`  
 
 Returns the keys on the give `object`.
 
-### [.isObject](./lib/objects.js#L72)
+### [.isObject](./lib/objects.js#L90)
 
 Return true if the given `value` is an object with keys.
 
@@ -377,7 +435,7 @@ Return true if the given `value` is an object with keys.
 //=> 'true'
 ```
 
-### [.forIn](./lib/objects.js#L89)
+### [.forIn](./lib/objects.js#L107)
 
 * `object` **{Object}**: The object to iterate over.    
 * `fn` **{Function}**: Callback function.    
@@ -389,7 +447,7 @@ of an object, and return an object with properties that
 evaluate to true from the callback. Exit early by returning
 `false`.
 
-### [.forOwn](./lib/objects.js#L109)
+### [.forOwn](./lib/objects.js#L127)
 
 * `object` **{Object}**: The object to iterate over.    
 * `fn` **{Function}**: Callback function.    
@@ -400,7 +458,7 @@ Iterate over the own enumerable properties of an object, and
 return an object with properties that evaluate to true from
 the callback. Exit early by returning `false`
 
-### [.extend](./lib/objects.js#L126)
+### [.extend](./lib/objects.js#L144)
 
 * `o` **{Object}**: The target object. Pass an empty object to shallow clone.    
 * `objects` **{Object}**    
@@ -408,7 +466,7 @@ the callback. Exit early by returning `false`
 
 Extend `o` with properties of other `objects`.
 
-### [.merge](./lib/objects.js#L155)
+### [.merge](./lib/objects.js#L173)
 
 * `o` **{Object}**: The target object. Pass an empty object to shallow clone.    
 * `objects` **{Object}**    
@@ -416,6 +474,148 @@ Extend `o` with properties of other `objects`.
 
 Recursively combine the properties of `o` with the
 properties of other `objects`.
+### [.relative](./lib/path.js#L21)
+
+Get the relative path from file `a` to file `b`. Typically the file paths would be variables passed on the context.
+
+* `a` **{String}**: The "from" file path.    
+* `b` **{String}**: The "to" file path.    
+* `returns` **{String}**: Returns a relative path.  
+
+```js
+<%= relative(a, b) %>
+```
+
+### [.extname](./lib/path.js#L38)
+
+Return the file extension for the given `filepath`.
+
+* `fp` **{String}**: File path    
+* `returns` **{String}**: Returns a file extension  
+
+```js
+<%= extname("foo.js") %>
+//=> '.js'
+```
+
+### [.capitalize](./lib/string.js#L16)
+
+Capitalize the first word in a sentence.
+
+* `str` **{String}**    
+* `returns`: {String}  
+
+```js
+<%= capitalize("a boring sentence.") %>
+//=> "A boring sentence."
+```
+
+### [.capitalizeFirst](./lib/string.js#L30)
+
+* `str` **{String}**    
+* `returns`: {String}  
+
+Capitalize the first word in a sentence
+
+### [.capitalizeEach](./lib/string.js#L46)
+
+* `str` **{String}**    
+* `returns`: {String}  
+
+Capitalize each word in a sentence.
+
+### [.capitalizeAll](./lib/string.js#L62)
+
+* `str` **{String}**    
+* `returns`: {String}  
+
+Capitalize each word in a sentence (DUPLICATE)
+
+### [.center](./lib/string.js#L85)
+
+* **{String}**: str    
+* **{String}**: spaces    
+* `returns`: {String}  
+
+Center a string using non-breaking spaces
+
+### [.dashify](./lib/string.js#L102)
+
+* **{String}**: str    
+* `returns`: {String}  
+
+Replace periods in string with hyphens.
+
+### [.hyphenate](./lib/string.js#L115)
+
+* **{String}**: str    
+* `returns`: {String}  
+
+Replace spaces in string with hyphens.
+
+### [.lowercase](./lib/string.js#L128)
+
+* **{String}**: str    
+* `returns`: {String}  
+
+Make all letters in the string lowercase
+
+### [.plusify](./lib/string.js#L142)
+
+* **{String}**: str The input string    
+* `returns` **{String}**: Input string with spaces replaced by plus signs  
+
+Replace spaces in string with pluses.
+
+### [.sentence](./lib/string.js#L155)
+
+* **{String}**: str    
+* `returns`: {String}  
+
+Sentence case
+
+### [.titleize](./lib/string.js#L173)
+
+* **{String}**: str    
+* `returns`: {String}  
+
+Title case. "This is Title Case"
+
+### [.count](./lib/string.js#L213)
+
+* **{String}**: str       The haystack    
+* **{String}**: substring The needle    
+* `returns` **{Number}**: The number of times the needle is found in the haystack.  
+
+Return the number of occurrances of a string, within a string
+
+### [.replace](./lib/string.js#L241)
+
+* **{String}**: str    
+* **{String}**: a    
+* **{String}**: b    
+* `returns`: {String}  
+
+Replace occurrences of string "A" with string "B"
+
+### [.ellipsis](./lib/string.js#L257)
+
+* **{String}**: str      The input string.    
+* **{Number}**: limit    The number of characters to limit the string.    
+* **{String}**: append   The string to append if charaters are omitted.    
+* `returns` **{String}**: The truncated string.  
+
+Truncate the input string and removes all HTML tags
+
+### [.truncate](./lib/string.js#L279)
+
+* **{String}**: str    
+* **{String}**: length    
+* **{String}**: omission    
+* `returns`: {String}  
+
+Truncates a string given a specified `length`, providing a
+custom string to denote an `omission`.
 
 
 ## Run tests
@@ -442,14 +642,14 @@ Released under the MIT license
 
 ***
 
-_This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on March 01, 2015._
+_This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on March 07, 2015._
 
 [ansi]: https://github.com/TooTallNate/ansi.js
 [ansi-regex]: null
 [ansi-styles]: https://github.com/sindresorhus/ansi-styles
 [any]: https://github.com/jonschlinkert/any
-[argparse]: https://github.com/nodeca/argparse
-[arr-diff]: null
+[argparse]: null
+[arr-diff]: https://github.com/jonschlinkert/arr-diff
 [arr-filter]: null
 [arr-flatten]: https://github.com/jonschlinkert/arr-flatten
 [arr-map]: null
@@ -458,7 +658,8 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [array-union]: https://github.com/sindresorhus/array-union
 [array-uniq]: https://github.com/sindresorhus/array-uniq
 [array-unique]: https://github.com/jonschlinkert/array-unique
-[async]: null
+[async]: https://github.com/caolan/async
+[autolinker]: https://github.com/gregjacobs/Autolinker.js
 [balanced-match]: https://github.com/juliangruber/balanced-match
 [benchmark]: http://benchmarkjs.com/
 [benchmarked]: https://github.com/jonschlinkert/benchmarked
@@ -467,6 +668,8 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [chalk]: null
 [clone-deep]: https://github.com/jonschlinkert/clone-deep
 [concat-map]: https://github.com/substack/node-concat-map
+[date\.js]: null
+[debug]: https://github.com/visionmedia/debug
 [delete]: https://github.com/jonschlinkert/delete
 [escape-string-regexp]: https://github.com/sindresorhus/escape-string-regexp
 [esprima]: http://esprima.org
@@ -482,24 +685,30 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [for-own]: null
 [fs-utils]: https://github.com/assemble/fs-utils
 [get-value]: https://github.com/jonschlinkert/get-value
-[glob]: https://github.com/isaacs/node-glob
+[glob]: null
+[glob-base]: https://github.com/jonschlinkert/glob-base
+[glob-parent]: https://github.com/es128/glob-parent
 [glob-path-regex]: https://github.com/regexps/glob-path-regex
 [globby]: null
 [graceful-fs]: https://github.com/isaacs/node-graceful-fs
 [has-ansi]: https://github.com/sindresorhus/has-ansi
 [has-value]: https://github.com/jonschlinkert/has-value
 [helper-concat]: https://github.com/jonschlinkert/helper-concat
+[helper-date]: https://github.com/helpers/helper-date
+[helper-markdown]: https://github.com/helpers/helper-markdown
+[helper-md]: https://github.com/helpers/helper-md
+[highlight\.js]: https://highlightjs.org/
 [inflight]: https://github.com/isaacs/inflight
 [inherits]: https://github.com/isaacs/inherits
 [is-absolute]: https://github.com/jonschlinkert/is-absolute
-[is-glob]: null
+[is-glob]: https://github.com/jonschlinkert/is-glob
 [is-number]: https://github.com/jonschlinkert/is-number
 [is-path-cwd]: https://github.com/sindresorhus/is-path-cwd
 [is-path-in-cwd]: https://github.com/sindresorhus/is-path-in-cwd
 [is-path-inside]: https://github.com/sindresorhus/is-path-inside
 [is-plain-object]: https://github.com/jonschlinkert/is-plain-object
 [is-relative]: https://github.com/jonschlinkert/is-relative
-[isobject]: null
+[isobject]: https://github.com/jonschlinkert/isobject
 [js-yaml]: https://github.com/nodeca/js-yaml
 [kind-of]: null
 [lang-map]: https://github.com/jonschlinkert/lang-map
@@ -511,9 +720,12 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [micromatch]: null
 [minimatch]: https://github.com/isaacs/minimatch
 [mixin-object]: null
+[moment]: http://momentjs.com
+[ms]: https://github.com/guille/ms.js
 [noncharacters]: https://github.com/jonschlinkert/noncharacters
 [normalize-path]: https://github.com/jonschlinkert/normalize-path
 [object-omit]: https://github.com/jonschlinkert/object-omit
+[object\.omit]: https://github.com/jonschlinkert/object.omit
 [once]: null
 [parse-glob]: https://github.com/jonschlinkert/parse-glob
 [path-is-inside]: https://github.com/domenic/path-is-inside
@@ -521,12 +733,14 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [randomatic]: https://github.com/jonschlinkert/randomatic
 [regex-cache]: https://github.com/jonschlinkert/regex-cache
 [relative]: null
-[repeat-element]: null
-[repeat-string]: null
+[remarkable]: https://github.com/jonschlinkert/remarkable
+[repeat-element]: https://github.com/jonschlinkert/repeat-element
+[repeat-string]: https://github.com/jonschlinkert/repeat-string
 [rimraf]: https://github.com/isaacs/rimraf
 [sprintf-js]: https://github.com/alexei/sprintf.js
 [strip-ansi]: https://github.com/sindresorhus/strip-ansi
 [supports-color]: https://github.com/sindresorhus/supports-color
+[to-key]: https://github.com/jonschlinkert/to-key
 [wrappy]: null
 
 
