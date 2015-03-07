@@ -181,6 +181,8 @@ Async helper for concatenating a glob of files. Returns a single string, with fi
 
 Note that this helper only works with apps that add support
 for using async helpers, like [assemble], [verb] or [template].
+
+
 ### [.embed](./lib/code.js#L26)
 
 Embed code from an external file as preformatted text.
@@ -226,6 +228,8 @@ Embed a GitHub Gist with the given `id`.
 
 Returns `true` if `value` exists in the given string, array
 or object. See [any] for documentation.
+
+
 ### [.glob](./lib/glob.js#L10)
 
 
@@ -240,7 +244,6 @@ See [globby] for documentation.
 Returns true if the given file path matches
 the glob pattern or regular expression.
 
-<%= apidocs(node_modules('helper-concat')) %>
 
 ### [.add](./lib/math.js#L19)
 
