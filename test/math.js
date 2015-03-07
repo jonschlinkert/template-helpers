@@ -13,7 +13,7 @@ var _ = require('lodash');
 
 var imports = {imports: helpers.math};
 
-describe('add', function() {
+describe('math helpers', function() {
   it('should return a plus b', function() {
     _.template('<%= add(5, 5) %>', imports)().should.equal('10');
   });
@@ -42,5 +42,3 @@ describe('add', function() {
     _.template('<%= sum([1, 2, 3, 4, 5]) %>', imports)().should.equal('15');
   });
 });
-
-console.log(helpers)
