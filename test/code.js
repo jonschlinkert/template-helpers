@@ -43,15 +43,9 @@ describe('code', function() {
       ].join('\n'));
     });
 
-    it.skip('should return create a jsfiddle link.', function() {
-      _.template('<%= jsfiddle({id: "0dfk10ks", {tabs: true}}) %>', imports)()
-      .should.equal([
-        '```js',
-        'function foo(a, b, c) {',
-        '  return a + b + c;',
-        '}',
-        '```\n'
-      ].join('\n'));
+    it('should return create a jsfiddle link.', function() {
+      _.template('<%= jsfiddle({id: "c0th6weq", tabs: true}) %>', imports)()
+      .should.equal('<iframe width="100%" height="300" src="http://jsfiddle.net/c0th6weq/embedded/true/presentation/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>');
     });
   });
 });
