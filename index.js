@@ -13,7 +13,7 @@ module.exports = Object.keys(helpers).reduce(function (acc, key) {
   acc[key] = helpers[key];
   acc._ = acc._ || {};
 
-  helpers.objects.extend(acc._, helpers[key]);
+  helpers.object.extend(acc._, helpers[key]);
   return acc;
 }, {});
 
