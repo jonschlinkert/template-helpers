@@ -11,7 +11,7 @@ var _ = require('lodash');
 var helpers = require('..');
 require('should');
 
-var imports = {imports: helpers.string};
+var imports = {imports: helpers._};
 
 describe('string helpers', function() {
   describe('toString', function() {
@@ -219,13 +219,13 @@ describe('string helpers', function() {
   });
 
   describe('align', function() {
-    it.skip('should right align the characters in a string.', function() {
-      var actual = _.template('<%= rightAlign("foo\nbarbazb") %>', imports)()
+    it('should right align the characters in a string.', function() {
+      var actual = _.template('<%= rightAlign("foo\\nbarbazb") %>', imports)()
       actual.should.equal('    foo\nbarbazb');
     });
-    it.skip('should center align the characters in a string.', function() {
-      var actual = _.template('<%= centerAlign("foo\nbarbazb") %>', imports)()
-      actual.should.equal('  foo  \nbarbazb');
+    it('should center align the characters in a string.', function() {
+      var actual = _.template('<%= centerAlign("foo\\nbarbazb") %>', imports)()
+      actual.should.equal('  foo\nbarbazb');
     });
   });
 
@@ -240,24 +240,17 @@ describe('string helpers', function() {
     });
   });
 
-  describe('sanitize', function() {
-    it('should strip html from a string.', function() {
-      var actual = _.template('<%= sanitize("<span>foo</span>") %>', imports)()
-      actual.should.equal('foo');
-    });
-  });
-
   describe('truncate', function() {
     it('should truncate a string to the specified `length`', function() {
-      var actual = _.template('<%= truncate("<span>foo bar baz</span>", 7) %>', imports)()
-      actual.should.equal('foo bar');
+      _.template('<%= truncate("foo bar baz", 7) %>', imports)().should.equal('foo bar');
+      _.template('<%= truncate(sanitize("<span>foo bar baz</span>"), 7) %>', imports)().should.equal('foo bar');
     });
   });
 
   describe('ellipsis', function() {
     it('should truncate a string to the specified `length` and add an ellipsis.', function() {
-      var actual = _.template('<%= ellipsis("<span>foo bar baz</span>", 7) %>', imports)()
-      actual.should.equal('foo bar…');
+      _.template('<%= ellipsis("foo bar baz", 7) %>', imports)().should.equal('foo bar…');
+      _.template('<%= ellipsis(sanitize("<span>foo bar baz</span>"), 7) %>', imports)().should.equal('foo bar…');
     });
   });
 });

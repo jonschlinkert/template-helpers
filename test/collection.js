@@ -11,7 +11,7 @@ require('should');
 var helpers = require('..');
 var _ = require('lodash');
 
-var imports = {imports: helpers.collections};
+var imports = {imports: helpers.collection};
 
 describe('collections', function() {
   describe('any', function() {

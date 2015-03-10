@@ -12,8 +12,7 @@ var helpers = require('..');
 var _ = require('lodash');
 
 var context = {arr: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']};
-var imports = {imports: helpers.arrays};
-
+var imports = {imports: helpers.array};
 
 describe('first', function() {
   it('Should return the first item in an array.', function() {

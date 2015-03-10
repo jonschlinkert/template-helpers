@@ -12,7 +12,7 @@ var helpers = require('..');
 var _ = require('lodash');
 
 var context = {obj: {a: 'a', b: 'b', c: {d: {e: 'e'}}}};
-var imports = {imports: helpers.objects};
+var imports = {imports: helpers.object};
 
 describe('objects', function() {
   describe('fallback', function() {
