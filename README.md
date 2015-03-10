@@ -57,8 +57,26 @@ Handlebars and Lo-Dash both allow **dot notation** to be used for referencing he
 This can be used as a way of working around potential naming conflicts. 
 
 
+## Helpers
+Currently {%= list('./lib/') %}
+
 ## API
-### [.first](./lib/arrays.js#L21)
+### [.isArray](./lib/array.js#L24)
+
+Returns true if `value` is an array.
+
+* `value` **{*}**: The value to test.    
+* `returns`: {Boolean}  
+
+```js
+<%= isArray('a, b, c') %>
+//=> 'false'
+
+<%= isArray(['a, b, c']) %>
+//=> 'true'
+```
+
+### [.first](./lib/array.js#L65)
 
 Returns the first item, or first `n` items of an array.
 
@@ -71,7 +89,7 @@ Returns the first item, or first `n` items of an array.
 //=> ['a', 'b']
 ```
 
-### [.last](./lib/arrays.js#L47)
+### [.last](./lib/array.js#L91)
 
 Returns the last item, or last `n` items of an array.
 
@@ -84,9 +102,9 @@ Returns the last item, or last `n` items of an array.
 //=> ['d', 'e']
 ```
 
-### [.before](./lib/arrays.js#L75)
+### [.before](./lib/array.js#L118)
 
-Returns all of the items in an array up to the specified number Opposite of `{{after}}`.
+Returns all of the items in an array up to the specified number Opposite of `<%= after() %`.
 
 * `array` **{Array}**    
 * `n` **{Number}**    
@@ -97,9 +115,9 @@ Returns all of the items in an array up to the specified number Opposite of `{{a
 //=> ['a', 'b']
 ```
 
-### [.after](./lib/arrays.js#L97)
+### [.after](./lib/array.js#L141)
 
-Returns all of the items in an arry after the specified index.
+Returns all of the items in an arry after the specified index. Opposite of `<%= before() %`.
 
 * `array` **{Array}**: Collection    
 * `n` **{Number}**: Starting index (number of items to exclude)    
@@ -110,7 +128,28 @@ Returns all of the items in an arry after the specified index.
 //=> ['c']
 ```
 
-### [.join](./lib/arrays.js#L122)
+### [.map](./lib/array.js#L171)
+
+Returns a new array, created by calling `function` on each element of the given `array`.
+
+* `array` **{Array}**    
+* `fn` **{String}**: The function to    
+* `returns`: {String}  
+
+```js
+function double(str) {
+  return str + str;
+}
+```
+
+Assuming that `double` has been registered as a helper:
+
+```js
+<%= map(['a', 'b', 'c'], double) %>
+//=> 'aa,bb,cc'
+```
+
+### [.join](./lib/array.js#L194)
 
 Join all elements of array into a string, optionally using a given separator.
 
@@ -126,19 +165,7 @@ Join all elements of array into a string, optionally using a given separator.
 //=> 'a-b-c'
 ```
 
-### [.toArray](./lib/arrays.js#L195)
-
-Converts a string such as "foo, bar, baz" to an ES Array of strings.
-
-* `str` **{String}**    
-* `returns`: {Array}  
-
-```js
-<%= toArray('a,b,c') %>
-//=> ["a", "b", "c"]
-```
-
-### [.compact](./lib/arrays.js#L214)
+### [.compact](./lib/array.js#L267)
 
 Returns an array with all falsey values removed.
 
@@ -170,6 +197,7 @@ console.log(diff(a, b))
 
 
 
+
 ### [.globConcat](./lib/async.js#L28)
 
 Async helper for concatenating a glob of files. Returns a single string, with files separated by a newline. A custom separator may be specific on `options.sep`.
@@ -182,8 +210,7 @@ Async helper for concatenating a glob of files. Returns a single string, with fi
 Note that this helper only works with apps that add support
 for using async helpers, like [assemble], [verb] or [template].
 
-
-### [.embed](./lib/code.js#L26)
+### [.embed](./lib/code.js#L25)
 
 Embed code from an external file as preformatted text.
 
@@ -198,9 +225,9 @@ Embed code from an external file as preformatted text.
 <%= embed('path/to/file.hbs', 'html') %>
 ```
 
-### [.jsfiddle](./lib/code.js#L53)
+### [.jsfiddle](./lib/code.js#L51)
 
-Embed a jsFiddle with the given `params`
+Generate the HTML for a jsFiddle link with the given `params`
 
 * `params` **{Object}**    
 * `returns`: {String}  
@@ -209,18 +236,8 @@ Embed a jsFiddle with the given `params`
 <%= jsfiddle({id: '0dfk10ks', {tabs: true}}) %>
 ```
 
-### [.gist](./lib/code.js#L82)
 
-Embed a GitHub Gist with the given `id`.
-
-* `id` **{String}**: The id of the gist to embed.    
-* `returns`: {String}  
-
-```js
-<%=  gist("5854601") %>
-```
-
-### [.any](./lib/collections.js#L15)
+### [.any](./lib/collection.js#L15)
 
 * `value` **{*}**    
 * `target` **{*}**    
@@ -229,13 +246,46 @@ Embed a GitHub Gist with the given `id`.
 Returns `true` if `value` exists in the given string, array
 or object. See [any] for documentation.
 
+### [._if](./lib/conditional.js#L13)
+
+* `object` **{Object}**    
+* `key` **{String}**    
+* `returns`: {Boolean}  
+
+Return true if `key` is an own, enumerable property
+of the given `obj`.
+
+### [.read](./lib/fs.js#L19)
+
+Read a file from the file system and inject its content
+
+* `filepath` **{String}**: Path of the file to read.    
+* `returns` **{String}**: Contents of the given file.  
+
+```js
+<%= read("foo.js") %>
+```
+
+### [.concat](./lib/fs.js#L40)
+
+Read a file from the file system and inject its content
+
+* `glob` **{String|Array}**: Glob pattern(s) or file path(s).    
+* `returns` **{String}** `glob`: Concatenated contents of the globbed files.  
+
+* `returns` **{Object}** `optons`: Options to pass to [helper-concat].  
+
+```js
+<%= concat("*.js") %>
+```
+
 
 ### [.glob](./lib/glob.js#L10)
 
 
 See [globby] for documentation.
 
-### [.isMatch](./lib/glob.js#L22)
+### [.match](./lib/glob.js#L22)
 
 * `filepath` **{String}**    
 * `pattern` **{String|RegExp}**: Glob pattern or regex.    
@@ -243,6 +293,41 @@ See [globby] for documentation.
 
 Returns true if the given file path matches
 the glob pattern or regular expression.
+
+### [.isMatch](./lib/glob.js#L36)
+
+* `filepath` **{String}**    
+* `pattern` **{String|RegExp}**: Glob pattern or regex.    
+* `returns`: {String}  
+
+Returns true if the given file path matches
+the glob pattern or regular expression.
+
+### [.escapeHtml](./lib/html.js#L18)
+
+Escape HTML characters in a string.
+
+* `str` **{String}**: String of HTML with characters to escape.    
+* `returns`: {String}  
+
+```js
+<%= escapeHtml("<span>foo</span>") %>
+//=> &lt;span&gt;foo&lt;&#x2F;span&gt;
+```
+
+### [.sanitize](./lib/html.js#L46)
+
+Strip HTML tags from a string, so that only the text nodes are preserved.
+
+* `str` **{String}**: The string of HTML to sanitize.    
+* `returns`: {String}  
+
+```js
+<%= sanitize("<span>foo</span>") %>
+//=> 'foo'
+```
+
+
 
 
 ### [.add](./lib/math.js#L19)
@@ -334,7 +419,7 @@ Returns the value of the given `number` rounded to the nearest integer.
 //=> '11'
 ```
 
-### [.sum](./lib/math.js#L149)
+### [.sum](./lib/math.js#L146)
 
 Returns the sum of all numbers in the given array.
 
@@ -342,45 +427,63 @@ Returns the sum of all numbers in the given array.
 * `returns`: {Number}  
 
 ```js
-<%= round(10.1) %>
-//=> '10'
-
-<%= round(10.5) %>
-//=> '11'
+<%= sum([1, 2, 3, 4, 5]) %>
+//=> '15'
 ```
 
-### [.stringify](./lib/objects.js#L33)
+
+### [.stringify](./lib/object.js#L42)
+
+Stringify an object using `JSON.stringify()`.
 
 * `object` **{Object}**    
 * `returns`: {String}  
 
-Stringify an object using `JSON.stringify()`.
+```js
+<%= stringify({a: "a"}) %>
+//=> '{"a":"a"}'
+``
 
-### [.hasOwn](./lib/objects.js#L46)
+## [.parse](./lib/object.js#L59)
+
+Parse a string into an object using `JSON.parse()`.
+
+* `str` **{String}**: The string to parse.    
+* `returns` **{Object}**: The parsed object.  
+
+```js
+<%= parse(\'{"foo":"bar"}\')["foo"] %>
+//=> 'bar'
+```
+
+### [.get](./lib/object.js#L77)
+
+Use property paths (`a.b.c`) get a nested value from an object.
 
 * `object` **{Object}**    
-* `key` **{String}**    
-* `returns`: {Boolean}  
-
-Returns true if `object` has own property `key`.
-
-### [.get](./lib/objects.js#L58)
-
-* `object` **{Object}**    
+* `path` **{String}**: Dot notation for the property to get.    
 * `returns`: {String}  
 
-Stringify an object using `JSON.stringify()`.
+```js
+<%= get({a: {b: 'c'}}, 'a.b') %>
+//=> 'c'
+```
 
-### [.keys](./lib/objects.js#L70)
+### [.keys](./lib/object.js#L94)
 
-* `obj` **{Object}**    
-* `returns` **{Array}**: Keys from `obj`  
+Returns an array of keys from the given `object`.
 
-Returns the keys on the give `object`.
+* `object` **{Object}**    
+* `returns` **{Array}**: Keys from `object`  
 
-### [.isObject](./lib/objects.js#L90)
+```js
+<%= keys({a: 'b', c: 'd'}) %>
+//=> '["a", "c"]'
+```
 
-Return true if the given `value` is an object with keys.
+### [.isObject](./lib/object.js#L115)
+
+Return true if the given `value` is an object, and not `null` or an array.
 
 * `value` **{Object}**: The value to check.    
 * `returns`: {Boolean}  
@@ -393,7 +496,47 @@ Return true if the given `value` is an object with keys.
 //=> 'true'
 ```
 
-### [.forIn](./lib/objects.js#L107)
+### [.isPlainObject](./lib/object.js#L138)
+
+Return true if the given `value` is a plain object.
+
+* `value` **{Object}**: The value to check.    
+* `returns`: {Boolean}  
+
+```js
+<%= isPlainObject(['a', 'b', 'c']) %>
+//=> 'false'
+
+<%= isPlainObject({a: 'b'}) %>
+//=> 'true'
+
+<%= isPlainObject(/foo/g) %>
+//=> 'false'
+```
+
+### [.hasOwn](./lib/object.js#L152)
+
+* `object` **{Object}**    
+* `key` **{String}**    
+* `returns`: {Boolean}  
+
+Return true if `key` is an own, enumerable property
+of the given `obj`.
+
+### [.omit](./lib/object.js#L170)
+
+Return a copy of `object` exclusing the given `keys`.
+
+* `object` **{Object}**: Object with keys to omit.    
+* `keys` **{String}**: Keys to omit.    
+* `returns`: {Boolean}  
+
+```js
+<%= omit({a: 'a', b: 'b', c: 'c'}, ['a', 'c']) %>
+//=> '{b: "b"}'
+```
+
+### [.forIn](./lib/object.js#L187)
 
 * `object` **{Object}**: The object to iterate over.    
 * `fn` **{Function}**: Callback function.    
@@ -405,7 +548,7 @@ of an object, and return an object with properties that
 evaluate to true from the callback. Exit early by returning
 `false`.
 
-### [.forOwn](./lib/objects.js#L127)
+### [.forOwn](./lib/object.js#L207)
 
 * `object` **{Object}**: The object to iterate over.    
 * `fn` **{Function}**: Callback function.    
@@ -416,7 +559,7 @@ Iterate over the own enumerable properties of an object, and
 return an object with properties that evaluate to true from
 the callback. Exit early by returning `false`
 
-### [.extend](./lib/objects.js#L144)
+### [.extend](./lib/object.js#L224)
 
 * `o` **{Object}**: The target object. Pass an empty object to shallow clone.    
 * `objects` **{Object}**    
@@ -424,7 +567,7 @@ the callback. Exit early by returning `false`
 
 Extend `o` with properties of other `objects`.
 
-### [.merge](./lib/objects.js#L173)
+### [.merge](./lib/object.js#L253)
 
 * `o` **{Object}**: The target object. Pass an empty object to shallow clone.    
 * `objects` **{Object}**    
@@ -432,6 +575,7 @@ Extend `o` with properties of other `objects`.
 
 Recursively combine the properties of `o` with the
 properties of other `objects`.
+
 ### [.dirname](./lib/path.js#L20)
 
 Return the dirname for the given `filepath`. Uses the node.js [path] module.
@@ -480,7 +624,19 @@ Return the file extension for the given `filepath`. Uses the node.js [path] modu
 //=> '.js'
 ```
 
-### [.resolve](./lib/path.js#L92)
+### [.ext](./lib/path.js#L92)
+
+Return the file extension for the given `filepath`, excluding the `.`.
+
+* `filepath` **{String}**    
+* `returns` **{String}**: Returns a file extension without dot.  
+
+```js
+<%= ext("foo.js") %>
+//=> 'js'
+```
+
+### [.resolve](./lib/path.js#L110)
 
 Resolves the given paths to an absolute path. Uses the node.js [path] module.
 
@@ -492,7 +648,7 @@ Resolves the given paths to an absolute path. Uses the node.js [path] module.
 //=> '/foo/bar/baz'
 ```
 
-### [.relative](./lib/path.js#L111)
+### [.relative](./lib/path.js#L129)
 
 Get the relative path from file `a` to file `b`. Typically `a` and `b` would be variables passed on the context. Uses the node.js [path] module.
 
@@ -504,7 +660,25 @@ Get the relative path from file `a` to file `b`. Typically `a` and `b` would be 
 <%= relative(a, b) %>
 ```
 
-### [.join](./lib/path.js#L133)
+### [.segments](./lib/path.js#L153)
+
+Get specific (joined) segments of a file path by passing a range of array indices.
+
+* `filepath` **{String}**: The file path to split into segments.    
+* `returns` **{String}**: Returns a single, joined file path.  
+
+```js
+<%= segments("a/b/c/d", "2", "3") %>
+//=> 'c/d'
+
+<%= segments("a/b/c/d", "1", "3") %>
+//=> 'b/c/d'
+
+<%= segments("a/b/c/d", "1", "2") %>
+//=> 'b/c'
+```
+
+### [.join](./lib/path.js#L175)
 
 Join all arguments together and normalize the resulting `filepath`. Uses the node.js [path] module.
 
@@ -519,9 +693,9 @@ can be used with helpers to differentiate. Example: `<%= path.join() %>`.
 //=> 'a/b'
 ```
 
-### [.isAbsolute](./lib/path.js#L170)
+### [.isAbsolute](./lib/path.js#L210)
 
-Determines whether path is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory. Uses the node.js [path] module.
+Returns true if a file path is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory. Uses the node.js [path] module.
 
 * `filepath` **{String}**    
 * `returns` **{String}**: Returns a resolve  
@@ -529,23 +703,330 @@ Determines whether path is an absolute path. An absolute path will always resolv
 ```js
 // posix
 <%= isAbsolute('/foo/bar') %>
-//=> true
-<%= isAbsolute('/baz/..') %>
-//=> true
+//=> 'true'
 <%= isAbsolute('qux/') %>
-//=> false
+//=> 'false'
 <%= isAbsolute('.') %>
-//=> false
+//=> 'false'
 
 // Windows
 <%= isAbsolute('//server') %>
-//=> true
+//=> 'true'
 <%= isAbsolute('C:/foo/..') %>
-//=> true
+//=> 'true'
 <%= isAbsolute('bar\\baz') %>
-//=> false
+//=> 'false'
 <%= isAbsolute('.') %>
-//=> false
+//=> 'false'
+```
+
+### [.isRelative](./lib/path.js#L245)
+
+Returns true if a file path is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory. Uses the node.js [path] module.
+
+* `filepath` **{String}**    
+* `returns` **{String}**: Returns a resolve  
+
+```js
+// posix
+<%= isRelative('/foo/bar') %>
+//=> 'false'
+<%= isRelative('qux/') %>
+//=> 'true'
+<%= isRelative('.') %>
+//=> 'true'
+
+// Windows
+<%= isRelative('//server') %>
+//=> 'false'
+<%= isRelative('C:/foo/..') %>
+//=> 'false'
+<%= isRelative('bar\\baz') %>
+//=> 'true'
+<%= isRelative('.') %>
+//=> 'true'
+```
+
+
+### [.isString](./lib/string.js#L23)
+
+Returns true if the value is a string.
+
+* `val` **{String}**    
+* `returns` **{Boolean}**: True if the value is a string.  
+
+```js
+<%= isString('abc') %>
+//=> 'true'
+
+<%= isString(null) %>
+//=> 'false'
+```
+
+### [.toString](./lib/string.js#L44)
+
+Cast the given value to a string. If `null` or `undefined`, an empty string is returned.
+
+* `string` **{String}**: The string to lowercase.    
+* `returns`: {String}  
+
+```js
+<%= toString() %>
+//=> '""'
+
+<%= toString(null) %>
+//=> '""'
+```
+
+### [.lowercase](./lib/string.js#L61)
+
+Lowercase the characters in the given `string`.
+
+* `string` **{String}**: The string to lowercase.    
+* `returns`: {String}  
+
+```js
+<%= lowercase("ABC") %>
+//=> 'abc'
+```
+
+### [.uppercase](./lib/string.js#L79)
+
+Uppercase the characters in a string.
+
+* `string` **{String}**: The string to uppercase.    
+* `returns`: {String}  
+
+```js
+<%= uppercase("abc") %>
+//=> 'ABC'
+```
+
+### [.trim](./lib/string.js#L98)
+
+Trim extraneous whitespace from the beginning and end of a string.
+
+* `string` **{String}**: The string to trim.    
+* `returns`: {String}  
+
+```js
+<%= trim("  ABC   ") %>
+//=> 'ABC'
+```
+
+### [.chop](./lib/string.js#L123)
+
+Like trim, but removes both extraneous whitespace and non-word characters from the beginning and end of a string.
+
+* `string` **{String}**: The string to chop.    
+* `returns`: {String}  
+
+```js
+<%= chop("_ABC_") %>
+//=> 'ABC'
+
+<%= chop("-ABC-") %>
+//=> 'ABC'
+
+<%= chop(" ABC ") %>
+//=> 'ABC'
+```
+
+### [.camelcase](./lib/string.js#L142)
+
+camelCase the characters in `string`.
+
+* `string` **{String}**: The string to camelcase.    
+* `returns`: {String}  
+
+```js
+<%= camelcase("foo bar baz") %>
+//=> 'fooBarBaz'
+```
+
+### [.pascalcase](./lib/string.js#L164)
+
+PascalCase the characters in `string`.
+
+* `string` **{String}**    
+* `returns`: {String}  
+
+```js
+<%= pascalcase("foo bar baz") %>
+//=> 'FooBarBaz'
+```
+
+### [.snakecase](./lib/string.js#L183)
+
+snake_case the characters in `string`.
+
+* `string` **{String}**    
+* `returns`: {String}  
+
+```js
+<%= snakecase("a-b-c d_e") %>
+//=> 'a_b_c_d_e'
+```
+
+### [.dotcase](./lib/string.js#L205)
+
+dot.case the characters in `string`.
+
+* `string` **{String}**    
+* `returns`: {String}  
+
+```js
+<%= dotcase("a-b-c d_e") %>
+//=> 'a.b.c.d.e'
+```
+
+### [.dashcase](./lib/string.js#L229)
+
+dash-case the characters in `string`. This is similar to [slugify], but [slugify] makes the string compatible to be used as a URL slug.
+
+* `string` **{String}**    
+* `returns`: {String}  
+
+```js
+<%= dashcase("a b.c d_e") %>
+//=> 'a-b-c-d-e'
+```
+
+### [.pathcase](./lib/string.js#L251)
+
+path/case the characters in `string`.
+
+* `string` **{String}**    
+* `returns`: {String}  
+
+```js
+<%= pathcase("a-b-c d_e") %>
+//=> 'a/b/c/d/e'
+```
+
+### [.sentencecase](./lib/string.js#L273)
+
+Sentence-case the characters in `string`.
+
+* `string` **{String}**    
+* `returns`: {String}  
+
+```js
+<%= sentencecase("foo bar baz.") %>
+//=> 'Foo bar baz.'
+```
+
+### [.hyphenate](./lib/string.js#L292)
+
+Replace spaces in a string with hyphens. This
+
+* `string` **{String}**    
+* `returns`: {String}  
+
+```js
+<%= hyphenate("a b c") %>
+//=> 'a-b-c'
+```
+
+### [.wordwrap](./lib/string.js#L331)
+
+Wrap words to a specified width using [word-wrap].
+
+* `string` **{String}**: The string with words to wrap.    
+* `object` **{Options}**: Options to pass to [word-wrap]    
+* `returns` **{String}**: Formatted string.  
+
+```js
+<%= wordwrap("a b c d e f", {width: 5, newline: '<br>  '}) %>
+//=> '  a b c <br>  d e f'
+```
+
+### [.count](./lib/string.js#L351)
+
+Count the number of occurrances of a substring within a string.
+
+* `string` **{String}**    
+* `substring` **{String}**    
+* `returns` **{Number}**: The occurances of `substring` in `string`  
+
+```js
+<%= count("abcabcabc", "a") %>
+//=> '3'
+```
+
+### [.reverse](./lib/string.js#L369)
+
+Reverse the characters in a string.
+
+* `str` **{String}**: The string to reverse.    
+* `returns`: {String}  
+
+```js
+<%= reverse("abc") %>
+//=> 'cba'
+```
+
+### [.rightAlign](./lib/string.js#L388)
+
+Right align the characters in a string using non-breaking spaces.
+
+* `str` **{String}**: The string to reverse.    
+* `returns` **{String}**: Right-aligned string.  
+
+```js
+<%= rightAlign(str) %>
+```
+
+### [.centerAlign](./lib/string.js#L407)
+
+Center align the characters in a string using non-breaking spaces.
+
+* `str` **{String}**: The string to reverse.    
+* `returns` **{String}**: Centered string.  
+
+```js
+<%= centerAlign("abc") %>
+```
+
+### [.replace](./lib/string.js#L427)
+
+Replace occurrences of `a` with `b`.
+
+* `str` **{String}**    
+* `a` **{String|RegExp}**: Can be a string or regexp.    
+* `b` **{String}**    
+* `returns`: {String}  
+
+```js
+<%= replace("abcabc", /a/, "z") %>
+//=> 'zbczbc'
+```
+
+### [.truncate](./lib/string.js#L454)
+
+Truncate a string by removing all HTML tags and limiting the result to the specified `length`.
+
+* `str` **{String}**    
+* `length` **{Number}**: The desired length of the returned string.    
+* `returns` **{String}**: The truncated string.  
+
+```js
+<%= truncate("<span>foo bar baz</span>", 7) %>
+//=> 'foo bar'
+```
+
+### [.ellipsis](./lib/string.js#L475)
+
+Truncate a string to the specified `length`, and append it with an elipsis, `…`.
+
+* `str` **{String}**    
+* `length` **{Number}**: The desired length of the returned string.    
+* `ch` **{String}**: Optionally pass custom characters to append. Default is `…`.    
+* `returns` **{String}**: The truncated string.  
+
+```js
+<%= ellipsis("<span>foo bar baz</span>", 7) %>
+//=> 'foo bar…'
 ```
 
 
@@ -577,102 +1058,16 @@ Released under the MIT license
 
 ***
 
-_This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on March 07, 2015._
+_This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on March 10, 2015._
 
-[ansi]: https://github.com/TooTallNate/ansi.js
-[ansi-regex]: null
-[ansi-styles]: https://github.com/sindresorhus/ansi-styles
-[any]: https://github.com/jonschlinkert/any
-[argparse]: https://github.com/nodeca/argparse
-[arr-diff]: https://github.com/jonschlinkert/arr-diff
-[arr-filter]: null
-[arr-flatten]: https://github.com/jonschlinkert/arr-flatten
-[arr-map]: null
-[array-differ]: https://github.com/sindresorhus/array-differ
-[array-slice]: null
-[array-union]: https://github.com/sindresorhus/array-union
-[array-uniq]: https://github.com/sindresorhus/array-uniq
-[array-unique]: https://github.com/jonschlinkert/array-unique
-[async]: https://github.com/caolan/async
-[balanced-match]: https://github.com/juliangruber/balanced-match
-[benchmark]: http://benchmarkjs.com/
-[benchmarked]: https://github.com/jonschlinkert/benchmarked
-[brace-expansion]: https://github.com/juliangruber/brace-expansion
-[braces]: https://github.com/jonschlinkert/braces
-[chalk]: null
-[concat-map]: https://github.com/substack/node-concat-map
-[debug]: https://github.com/visionmedia/debug
-[delete]: https://github.com/jonschlinkert/delete
-[escape-string-regexp]: https://github.com/sindresorhus/escape-string-regexp
-[esprima]: http://esprima.org
-[expand-brackets]: https://github.com/jonschlinkert/expand-brackets
-[expand-range]: https://github.com/jonschlinkert/expand-range
-[export-files]: https://github.com/jonschlinkert/export-files
-[extend-shallow]: null
-[extglob]: https://github.com/jonschlinkert/extglob
-[file-reader]: https://github.com/jonschlinkert/file-reader
-[filename-regex]: https://github.com/regexps/filename-regex
-[fill-range]: https://github.com/jonschlinkert/fill-range
-[for-in]: null
-[for-own]: null
-[fs-utils]: https://github.com/assemble/fs-utils
-[get-value]: https://github.com/jonschlinkert/get-value
-[glob]: null
-[glob-base]: https://github.com/jonschlinkert/glob-base
-[glob-parent]: https://github.com/es128/glob-parent
-[glob-path-regex]: https://github.com/regexps/glob-path-regex
-[globby]: null
-[graceful-fs]: https://github.com/isaacs/node-graceful-fs
-[has-ansi]: https://github.com/sindresorhus/has-ansi
-[has-value]: https://github.com/jonschlinkert/has-value
-[helper-concat]: https://github.com/jonschlinkert/helper-concat
-[inflight]: https://github.com/isaacs/inflight
-[inherits]: https://github.com/isaacs/inherits
-[is-absolute]: https://github.com/jonschlinkert/is-absolute
-[is-glob]: https://github.com/jonschlinkert/is-glob
-[is-number]: https://github.com/jonschlinkert/is-number
-[is-path-cwd]: https://github.com/sindresorhus/is-path-cwd
-[is-path-in-cwd]: https://github.com/sindresorhus/is-path-in-cwd
-[is-path-inside]: https://github.com/sindresorhus/is-path-inside
-[is-relative]: https://github.com/jonschlinkert/is-relative
-[isobject]: https://github.com/jonschlinkert/isobject
-[js-yaml]: https://github.com/nodeca/js-yaml
-[kind-of]: null
-[lang-map]: https://github.com/jonschlinkert/lang-map
-[language-map]: https://github.com/blakeembrey/language-map
-[lodash]: null
-[make-iterator]: https://github.com/jonschlinkert/make-iterator
-[map-files]: https://github.com/jonschlinkert/map-files
-[markdown-utils]: https://github.com/jonschlinkert/markdown-utils
-[micromatch]: null
-[minimatch]: https://github.com/isaacs/minimatch
-[mixin-object]: https://github.com/jonschlinkert/mixin-object
-[ms]: https://github.com/guille/ms.js
-[noncharacters]: https://github.com/jonschlinkert/noncharacters
-[normalize-path]: https://github.com/jonschlinkert/normalize-path
-[object-omit]: https://github.com/jonschlinkert/object-omit
-[object\.omit]: https://github.com/jonschlinkert/object.omit
-[once]: null
-[parse-glob]: https://github.com/jonschlinkert/parse-glob
-[path-is-inside]: https://github.com/domenic/path-is-inside
-[preserve]: https://github.com/jonschlinkert/preserve
-[randomatic]: https://github.com/jonschlinkert/randomatic
-[regex-cache]: https://github.com/jonschlinkert/regex-cache
-[relative]: null
-[repeat-element]: https://github.com/jonschlinkert/repeat-element
-[repeat-string]: https://github.com/jonschlinkert/repeat-string
-[rimraf]: https://github.com/isaacs/rimraf
-[sprintf-js]: https://github.com/alexei/sprintf.js
-[strip-ansi]: https://github.com/sindresorhus/strip-ansi
-[supports-color]: https://github.com/sindresorhus/supports-color
-[to-key]: https://github.com/jonschlinkert/to-key
-[wrappy]: null
-
+{%= reflinks() %}
 
 
 [assemble]: https://github.com/assemble/assemble
 [verb]: https://github.com/assemble/verb
 [template]: https://github.com/jonschlinkert/template
+[word-wrap]: https://github.com/jonschlinkert/word-wrap
+[helper-concat]: https://github.com/helpers/helper-concat
 [path]: https://nodejs.org/api/path.html
 
 <!-- deps:helper-reflinks -->
