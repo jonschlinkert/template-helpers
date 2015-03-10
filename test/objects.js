@@ -11,58 +11,88 @@ require('should');
 var helpers = require('..');
 var _ = require('lodash');
 
-
 var context = {obj: {a: 'a', b: 'b', c: {d: {e: 'e'}}}};
 var imports = {imports: helpers.objects};
 
-describe('hasOwn', function() {
-  it('should return true when an object has own property `key`.', function() {
-    _.template('<%= hasOwn(obj, "a") %>', imports)(context).should.equal('true');
-    _.template('<%= hasOwn(obj, "k") %>', imports)(context).should.equal('false');
-  });
-});
-
-describe('keys', function() {
-  it('should return the keys of an object.', function() {
-    _.template('<%= keys(obj) %>', imports)(context).should.equal(['a', 'b', 'c'].toString());
-  });
-});
-
-describe('isObject', function() {
-  it('should return true if the value is an object.', function() {
-    _.template('<%= isObject(obj) %>', imports)(context).should.equal('true');
-    _.template('<%= isObject([]) %>', imports)(context).should.equal('false');
-    _.template('<%= isObject("foo") %>', imports)(context).should.equal('false');
-  });
-});
-
-describe('extend', function() {
-  beforeEach(function () {
-    context.foo = {aaa: 'bbb'};
-    context.bar = {ccc: 'ddd'};
+describe('objects', function() {
+  describe('fallback', function() {
+    it('should use the fallback value when the first value is undefined.', function() {
+      _.template('<%= fallback(a.b) %>', imports)({a: {b: 'b'}}).should.equal('b');
+      _.template('<%= fallback(a.z, a.b) %>', imports)({a: {b: 'b'}}).should.equal('b');
+      _.template('<%= fallback(x.k, x.z) %>', imports)({x: {z: 'z'}}).should.equal('z');
+    });
   });
 
-  it('should extend the first object with the second.', function() {
-    var actual = _.template('<%= stringify(extend(foo, bar)) %>', imports)(context);
-    actual.should.equal('{"aaa":"bbb","ccc":"ddd"}');
+  describe('stringify', function() {
+    it('should stringify an object.', function() {
+      _.template('<%= stringify({a: "a"}) %>', imports)(context).should.equal('{"a":"a"}');
+      _.template('<%= stringify(obj.c) %>', imports)(context).should.equal('{"d":{"e":"e"}}');
+    });
   });
 
-  it('should use the extended object as context.', function() {
-    // overwrite `foo`
-    context.bar = {aaa: 'ddd'};
-    var actual = _.template('<%= get(extend(foo, bar), "aaa") %>', imports)(context);
-    actual.should.equal('ddd');
-  });
-});
-
-describe('merge', function() {
-  beforeEach(function () {
-    context.foo = {aaa: 'bbb', bbb: {ccc: {ddd: 'eee'}}};
-    context.bar = {aaa: 'bbb', bbb: {ccc: {eee: 'fff'}}};
+  describe('parse', function() {
+    it('should parse a string to an object:', function() {
+      _.template('<%= parse(\'{"foo":"bar"}\') %>', imports)(context).should.equal('[object Object]');
+      _.template('<%= parse(\'{"foo":"bar"}\')["foo"] %>', imports)(context).should.equal('bar');
+    });
   });
 
-  it('should merge the first object with the second.', function() {
-    var actual = _.template('<%= stringify(merge(foo, bar)) %>', imports)(context);
-    actual.should.equal('{"aaa":"bbb","bbb":{"ccc":{"ddd":"eee","eee":"fff"}}}');
+  describe('isObject', function() {
+    it('should return true if the value is an object.', function() {
+      _.template('<%= isObject(obj) %>', imports)(context).should.equal('true');
+      _.template('<%= isObject([]) %>', imports)(context).should.equal('false');
+      _.template('<%= isObject("foo") %>', imports)(context).should.equal('false');
+    });
+  });
+
+  describe('hasOwn', function() {
+    it('should return true when an object has own property `key`.', function() {
+      _.template('<%= hasOwn(obj, "a") %>', imports)(context).should.equal('true');
+      _.template('<%= hasOwn(obj, "k") %>', imports)(context).should.equal('false');
+    });
+  });
+
+  describe('keys', function() {
+    it('should return the keys of an object.', function() {
+      _.template('<%= keys(obj) %>', imports)(context).should.equal(['a', 'b', 'c'].toString());
+    });
+  });
+
+  describe('omit', function() {
+    it('should omit keys from an object.', function() {
+      var actual = _.template('<%= stringify(omit(obj, ["b", "c"])) %>', imports)(context)
+      actual.should.equal('{"a":"a"}');
+    });
+  });
+
+  describe('extend', function() {
+    beforeEach(function () {
+      context.foo = {aaa: 'bbb'};
+      context.bar = {ccc: 'ddd'};
+    });
+
+    it('should extend the first object with the second.', function() {
+      var actual = _.template('<%= stringify(extend(foo, bar)) %>', imports)(context);
+      actual.should.equal('{"aaa":"bbb","ccc":"ddd"}');
+    });
+
+    it('should use the extended object as context.', function() {
+      // overwrite `foo`
+      context.bar = {aaa: 'ddd'};
+      var actual = _.template('<%= get(extend(foo, bar), "aaa") %>', imports)(context);
+      actual.should.equal('ddd');
+    });
+  });
+
+  describe('merge', function() {
+    beforeEach(function () {
+      context.foo = {aaa: 'bbb', bbb: {ccc: {ddd: 'eee'}}};
+      context.bar = {aaa: 'bbb', bbb: {ccc: {eee: 'fff'}}};
+    });
+
+    it('should merge the first object with the second.', function() {
+      var actual = _.template('<%= stringify(merge(foo, bar)) %>', imports)(context);
+      actual.should.equal('{"aaa":"bbb","bbb":{"ccc":{"ddd":"eee","eee":"fff"}}}');
+    });
   });
 });
