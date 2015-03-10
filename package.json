@@ -33,6 +33,7 @@
     "any": "^1.0.0",
     "arr-diff": "^1.0.1",
     "arr-flatten": "^1.0.0",
+    "arr-map": "^1.0.0",
     "array-unique": "^0.1.1",
     "async": "^0.9.0",
     "center-align": "^0.1.1",
@@ -53,10 +54,18 @@
     "word-wrap": "^1.0.2"
   },
   "devDependencies": {
+    "code-context": "^0.4.1",
+    "gulp-istanbul": "^0.6.0",
+    "gulp-jshint": "^1.9.2",
+    "gulp-mocha": "^2.0.0",
+    "gulp-util": "^3.0.4",
     "helper-reflinks": "^1.0.0",
     "lodash": "^3.3.1",
     "mocha": "^2.2.0",
-    "should": "*"
+    "should": "*",
+    "strip-ansi": "^2.0.1",
+    "through2": "^0.6.3",
+    "verb": "^0.6.2"
   },
   "keywords": [
     "compile",
