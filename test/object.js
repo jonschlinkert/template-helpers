@@ -45,6 +45,15 @@ describe('objects', function() {
     });
   });
 
+  describe('isPlainObject', function() {
+    it('should return true if the value is a plain object.', function() {
+      _.template('<%= isPlainObject(obj) %>', imports)(context).should.equal('true');
+      _.template('<%= isPlainObject([]) %>', imports)(context).should.equal('false');
+      _.template('<%= isPlainObject(/foo/) %>', imports)(context).should.equal('false');
+      _.template('<%= isPlainObject("foo") %>', imports)(context).should.equal('false');
+    });
+  });
+
   describe('hasOwn', function() {
     it('should return true when an object has own property `key`.', function() {
       _.template('<%= hasOwn(obj, "a") %>', imports)(context).should.equal('true');
@@ -70,6 +79,14 @@ describe('objects', function() {
       context.foo = {aaa: 'bbb'};
       context.bar = {ccc: 'ddd'};
     });
+    it('should return an empty string when undefined.', function() {
+      _.template('<%= extend() %>', imports)().should.equal('');
+    });
+
+    it('should ignore non-objects.', function() {
+      var actual = _.template('<%= stringify(extend(foo, bar, "baz")) %>', imports)(context);
+      actual.should.equal('{"aaa":"bbb","ccc":"ddd"}');
+    });
 
     it('should extend the first object with the second.', function() {
       var actual = _.template('<%= stringify(extend(foo, bar)) %>', imports)(context);
@@ -89,7 +106,9 @@ describe('objects', function() {
       context.foo = {aaa: 'bbb', bbb: {ccc: {ddd: 'eee'}}};
       context.bar = {aaa: 'bbb', bbb: {ccc: {eee: 'fff'}}};
     });
-
+    it('should return an empty string when undefined.', function() {
+      _.template('<%= merge() %>', imports)().should.equal('');
+    });
     it('should merge the first object with the second.', function() {
       var actual = _.template('<%= stringify(merge(foo, bar)) %>', imports)(context);
       actual.should.equal('{"aaa":"bbb","bbb":{"ccc":{"ddd":"eee","eee":"fff"}}}');

@@ -22,6 +22,17 @@ describe('code', function() {
     process.chdir(orig);
   });
 
+  describe('jsfiddle', function() {
+    it('should return an empty string with no args.', function() {
+      _.template('<%= jsfiddle() %>', imports)()
+      .should.equal('');
+    });
+
+    it('should return create a jsfiddle link.', function() {
+      _.template('<%= jsfiddle({id: "c0th6weq", tabs: true}) %>', imports)()
+      .should.equal('<iframe width="100%" height="300" src="http://jsfiddle.net/c0th6weq/embedded/true/presentation/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>');
+    });
+  });
   describe('embed', function() {
     it('should return create a code example from the given file.', function() {
       _.template('<%= embed("a.js") %>', imports)().should.equal([
@@ -43,9 +54,14 @@ describe('code', function() {
       ].join('\n'));
     });
 
-    it('should return create a jsfiddle link.', function() {
-      _.template('<%= jsfiddle({id: "c0th6weq", tabs: true}) %>', imports)()
-      .should.equal('<iframe width="100%" height="300" src="http://jsfiddle.net/c0th6weq/embedded/true/presentation/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>');
+    it('should escape backticks in markdown.', function() {
+      _.template('<%= embed("a.md", "md") %>', imports)().should.equal([
+        '```md',
+        '&#x60&#x60&#x60',
+        'foo',
+        '&#x60&#x60&#x60',
+        '```\n'
+      ].join('\n'));
     });
   });
 });

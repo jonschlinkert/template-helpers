@@ -22,6 +22,9 @@ var context = {
 describe('conditional', function() {
   describe('if', function() {
 
+    it('should return an empty string when the first arg is not a function.', function() {
+      _.template('<%= _if("foo", "bar", thisArg) %>', imports)(context).should.equal('');
+    });
     it('should return the first value when `fn` returns true.', function() {
       _.template('<%= _if(fn, "foo", "bar", thisArg) %>', imports)(context).should.equal('foo');
     });

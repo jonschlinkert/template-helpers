@@ -23,6 +23,10 @@ describe('code', function() {
   });
 
   describe('fs', function() {
+    it('should return an empty string when the file does not exist.', function() {
+      _.template('<%= read("fooosos.js") %>', imports)().should.equal('');
+    });
+
     it('should read a file and inject its content.', function() {
       _.template('<%= read("a.js") %>', imports)().should.equal([
         'function foo(a, b, c) {',

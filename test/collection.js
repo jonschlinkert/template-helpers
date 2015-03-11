@@ -15,6 +15,9 @@ var imports = {imports: helpers.collection};
 
 describe('collections', function() {
   describe('any', function() {
+    it('should return an empty string when undefined.', function() {
+      _.template('<%= any() %>', imports)().should.equal('false');
+    });
     it('should return if a value exists in the given string.', function() {
       _.template('<%= any("a-b-c", "a") %>', imports)(context).should.equal('true');
       _.template('<%= any("a-b-c", "d") %>', imports)(context).should.equal('false');
