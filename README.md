@@ -534,9 +534,9 @@ Stringify an object using `JSON.stringify()`.
 ```js
 <%= stringify({a: "a"}) %>
 //=> '{"a":"a"}'
-``
+```
 
-## [.parse](./lib/object.js#L58)
+### [.parse](./lib/object.js#L58)
 
 Parse a string into an object using `JSON.parse()`.
 
