@@ -35,7 +35,7 @@ describe('code', function() {
   });
   describe('embed', function() {
     it('should return create a code example from the given file.', function() {
-      _.template('<%= embed("a.js") %>', imports)().should.equal([
+      _.template('<%= embed("a.js") %>', imports)({}).should.equal([
         '```js',
         'function foo(a, b, c) {',
         '  return a + b + c;',
