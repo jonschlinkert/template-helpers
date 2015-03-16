@@ -34,16 +34,5 @@ describe('code', function() {
         '}'
       ].join('\n'));
     });
-
-    it('should read a glob of files and concatenate them.', function() {
-      _.template('<%= concat("*.js") %>', imports)().should.equal([
-        'function foo(a, b, c) {',
-        '  return a + b + c;',
-        '}',
-        'function bar(x, y, z) {',
-        '  return x + y + z;',
-        '}'
-      ].join('\n'));
-    });
   });
 });
