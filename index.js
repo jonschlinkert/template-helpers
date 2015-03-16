@@ -16,4 +16,3 @@ module.exports = Object.keys(helpers).reduce(function (acc, key) {
   helpers.object.extend(acc._, helpers[key]);
   return acc;
 }, {});
-

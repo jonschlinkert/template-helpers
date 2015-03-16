@@ -35,7 +35,6 @@
     "center-align": "^0.1.1",
     "export-files": "^1.2.0",
     "get-value": "^1.0.4",
-    "helper-concat": "^0.2.0",
     "is-number": "^1.1.2",
     "is-plain-object": "^1.0.0",
     "isobject": "^1.0.0",
