@@ -7,6 +7,7 @@ var mocha = require('gulp-mocha');
 var verb = require('verb');
 
 verb.task('lint', function () {
+  /* deps:jshint-stylish */
   return verb.src(['index.js', 'lib/*.js'])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('jshint-stylish'));
