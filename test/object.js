@@ -105,13 +105,18 @@ describe('objects', function() {
     beforeEach(function () {
       context.foo = {aaa: 'bbb', bbb: {ccc: {ddd: 'eee'}}};
       context.bar = {aaa: 'bbb', bbb: {ccc: {eee: 'fff'}}};
+      context.baz = {aaa: 'bbb', bbb: {ccc: {fff: 'ggg'}}};
     });
     it('should return an empty string when undefined.', function() {
       _.template('<%= merge() %>', imports)().should.equal('');
     });
-    it('should merge the first object with the second.', function() {
+    it('should merge objects.', function() {
       var actual = _.template('<%= stringify(merge(foo, bar)) %>', imports)(context);
       actual.should.equal('{"aaa":"bbb","bbb":{"ccc":{"ddd":"eee","eee":"fff"}}}');
+    });
+    it('should merge multiple objects:', function() {
+      var actual = _.template('<%= stringify(merge(foo, bar, baz)) %>', imports)(context);
+      actual.should.equal('{"aaa":"bbb","bbb":{"ccc":{"ddd":"eee","eee":"fff","fff":"ggg"}}}');
     });
   });
 });
