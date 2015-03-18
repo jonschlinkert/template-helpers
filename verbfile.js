@@ -28,7 +28,6 @@ verb.task('test', ['lint'], function (cb) {
     });
 });
 
-
 // ignore patterns for excluding TOC headings
 // (passed to the built-in `toc` helper in verb)
 verb.option('toc.ignore', [
