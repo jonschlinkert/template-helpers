@@ -86,21 +86,21 @@ Lines        : 99.68% ( 310/311 )
 Currently 84 helpers in 11 sub-categories:
 
 + **[array](lib/array.js)**
-  - [after](lib/array.js#L132)
-  - [arrayify](lib/array.js#L45)
-  - [before](lib/array.js#L111)
-  - [compact](lib/array.js#L260)
-  - [difference](lib/array.js#L280)
-  - [first](lib/array.js#L63)
+  - [after](lib/array.js#L133)
+  - [arrayify](lib/array.js#L46)
+  - [before](lib/array.js#L112)
+  - [compact](lib/array.js#L263)
+  - [difference](lib/array.js#L283)
+  - [first](lib/array.js#L64)
   - [isArray](lib/array.js#L22)
-  - [join](lib/array.js#L191)
-  - [last](lib/array.js#L86)
-  - [length](lib/array.js#L242)
-  - [map](lib/array.js#L160)
-  - [shuffle](lib/array.js#L365)
-  - [sort](lib/array.js#L217)
-  - [union](lib/array.js#L347)
-  - [unique](lib/array.js#L316)
+  - [join](lib/array.js#L192)
+  - [last](lib/array.js#L87)
+  - [length](lib/array.js#L245)
+  - [map](lib/array.js#L161)
+  - [shuffle](lib/array.js#L369)
+  - [sort](lib/array.js#L219)
+  - [union](lib/array.js#L350)
+  - [unique](lib/array.js#L319)
 + **[code](lib/code.js)**
   - [embed](lib/code.js#L25)
   - [jsfiddle](lib/code.js#L51)
@@ -123,17 +123,17 @@ Currently 84 helpers in 11 sub-categories:
   - [subtract](lib/math.js#L36)
   - [sum](lib/math.js#L146)
 + **[object](lib/object.js)**
-  - [extend](lib/object.js#L182)
-  - [fallback](lib/object.js#L24)
-  - [get](lib/object.js#L76)
-  - [hasOwn](lib/object.js#L151)
-  - [isObject](lib/object.js#L114)
-  - [isPlainObject](lib/object.js#L137)
-  - [keys](lib/object.js#L93)
-  - [merge](lib/object.js#L211)
-  - [omit](lib/object.js#L169)
-  - [parse](lib/object.js#L58)
-  - [stringify](lib/object.js#L41)
+  - [extend](lib/object.js#L183)
+  - [fallback](lib/object.js#L25)
+  - [get](lib/object.js#L77)
+  - [hasOwn](lib/object.js#L152)
+  - [isObject](lib/object.js#L115)
+  - [isPlainObject](lib/object.js#L138)
+  - [keys](lib/object.js#L94)
+  - [merge](lib/object.js#L212)
+  - [omit](lib/object.js#L170)
+  - [parse](lib/object.js#L59)
+  - [stringify](lib/object.js#L42)
 + **[path](lib/path.js)**
   - [basename](lib/path.js#L38)
   - [dirname](lib/path.js#L20)
@@ -186,7 +186,27 @@ Returns true if `value` is an array.
 //=> 'true'
 ```
 
-### [.first](./lib/array.js#L63)
+### [.arrayify](./lib/array.js#L46)
+
+Cast `val` to an array.
+
+* `val` **{*}**: The value to arrayify.    
+* `returns` **{Array}**: An array.  
+
+* `returns`: {Array}  
+
+```js
+<%= arrayify('a') %>
+//=> '["a"]'
+
+<%= arrayify({a: 'b'}) %>
+//=> '[{a: "b"}]'
+
+<%= arrayify(['a')] %>
+//=> '["a"]'
+```
+
+### [.first](./lib/array.js#L64)
 
 Returns the first item, or first `n` items of an array.
 
@@ -199,7 +219,7 @@ Returns the first item, or first `n` items of an array.
 //=> '["a", "b"]'
 ```
 
-### [.last](./lib/array.js#L86)
+### [.last](./lib/array.js#L87)
 
 Returns the last item, or last `n` items of an array.
 
@@ -212,7 +232,7 @@ Returns the last item, or last `n` items of an array.
 //=> '["d", "e"]'
 ```
 
-### [.before](./lib/array.js#L111)
+### [.before](./lib/array.js#L112)
 
 Returns all of the items in an array up to the specified number Opposite of `<%= after() %`.
 
@@ -225,7 +245,7 @@ Returns all of the items in an array up to the specified number Opposite of `<%=
 //=> '["a", "b"]'
 ```
 
-### [.after](./lib/array.js#L132)
+### [.after](./lib/array.js#L133)
 
 Returns all of the items in an arry after the specified index. Opposite of `<%= before() %`.
 
@@ -238,7 +258,7 @@ Returns all of the items in an arry after the specified index. Opposite of `<%= 
 //=> '["c"]'
 ```
 
-### [.map](./lib/array.js#L160)
+### [.map](./lib/array.js#L161)
 
 Returns a new array, created by calling `function` on each element of the given `array`.
 
@@ -259,7 +279,7 @@ Assuming that `double` has been registered as a helper:
 //=> '["aa", "bb", "cc"]'
 ```
 
-### [.join](./lib/array.js#L191)
+### [.join](./lib/array.js#L192)
 
 Join all elements of array into a string, optionally using a given separator.
 
@@ -275,7 +295,34 @@ Join all elements of array into a string, optionally using a given separator.
 //=> 'a-b-c'
 ```
 
-### [.compact](./lib/array.js#L260)
+### [.sort](./lib/array.js#L219)
+
+Sort the given `array`. If an array of objects is passed, you may optionally pass a `key` to sort on as the second argument. You may alternatively pass a sorting function as the second argument.
+
+* `array` **{Array}**: the array to sort.    
+* `key` **{String|Function}**: The object key to sort by, or sorting function.    
+
+```js
+<%= sort(["b", "a", "c"]) %>
+//=> 'a,b,c'
+
+<%= sort([{a: "zzz"}, {a: "aaa"}], "a") %>
+//=> '[{"a":"aaa"},{"a":"zzz"}]'
+```
+
+### [.length](./lib/array.js#L245)
+
+Returns the length of the given array.
+
+* `array` **{Array}**    
+* `returns` **{Number}**: The length of the array.  
+
+```js
+<%= length(['a', 'b', 'c']) %>
+//=> 3
+```
+
+### [.compact](./lib/array.js#L263)
 
 Returns an array with all falsey values removed.
 
@@ -287,7 +334,7 @@ Returns an array with all falsey values removed.
 //=> '["a", "b", "c"]'
 ```
 
-### [.difference](./lib/array.js#L280)
+### [.difference](./lib/array.js#L283)
 
 Return the difference between the first array and additional arrays.
 
@@ -300,7 +347,7 @@ Return the difference between the first array and additional arrays.
 //=> '["c"]'
 ```
 
-### [.unique](./lib/array.js#L316)
+### [.unique](./lib/array.js#L319)
 
 Return an array, free of duplicate values.
 
@@ -312,7 +359,7 @@ Return an array, free of duplicate values.
 => '["a", "b", "c"]'
 ```
 
-### [.union](./lib/array.js#L347)
+### [.union](./lib/array.js#L350)
 
 Returns an array of unique values using strict equality for comparisons.
 
@@ -322,6 +369,18 @@ Returns an array of unique values using strict equality for comparisons.
 ```js
 <%= union(["a"], ["b"], ["c"]) %>
 //=> '["a", "b", "c"]'
+```
+
+### [.shuffle](./lib/array.js#L369)
+
+Shuffle the items in an array.
+
+* `arr` **{Array}**    
+* `returns`: {Array}  
+
+```js
+<%= shuffle(["a", "b", "c"]) %>
+//=> ["c", "a", "b"]
 ```
 
 ### [.embed](./lib/code.js#L25)
@@ -506,7 +565,20 @@ Returns the sum of all numbers in the given array.
 //=> '15'
 ```
 
-### [.stringify](./lib/object.js#L41)
+### [.fallback](./lib/object.js#L25)
+
+Specify a fallback value to use when the desired value is undefined. Note that undefined variables that are _not object properties_ with throw an error.
+
+* `a` **{*}**: The desired value.    
+* `b` **{*}**: The fallback ("default") value    
+* `returns` **{*}**: Either `a` or `b`  
+
+```js
+// when `title` is undefined, use the generic `site.title`
+<%= fallback(page.title, site.title) %>
+```
+
+### [.stringify](./lib/object.js#L42)
 
 Stringify an object using `JSON.stringify()`.
 
@@ -518,7 +590,7 @@ Stringify an object using `JSON.stringify()`.
 //=> '{"a":"a"}'
 ```
 
-### [.parse](./lib/object.js#L58)
+### [.parse](./lib/object.js#L59)
 
 Parse a string into an object using `JSON.parse()`.
 
@@ -530,7 +602,7 @@ Parse a string into an object using `JSON.parse()`.
 //=> 'bar'
 ```
 
-### [.get](./lib/object.js#L76)
+### [.get](./lib/object.js#L77)
 
 Use property paths (`a.b.c`) get a nested value from an object.
 
@@ -543,7 +615,7 @@ Use property paths (`a.b.c`) get a nested value from an object.
 //=> 'c'
 ```
 
-### [.keys](./lib/object.js#L93)
+### [.keys](./lib/object.js#L94)
 
 Returns an array of keys from the given `object`.
 
@@ -555,7 +627,7 @@ Returns an array of keys from the given `object`.
 //=> '["a", "c"]'
 ```
 
-### [.isObject](./lib/object.js#L114)
+### [.isObject](./lib/object.js#L115)
 
 Return true if the given `value` is an object, and not `null` or an array.
 
@@ -570,7 +642,7 @@ Return true if the given `value` is an object, and not `null` or an array.
 //=> 'true'
 ```
 
-### [.isPlainObject](./lib/object.js#L137)
+### [.isPlainObject](./lib/object.js#L138)
 
 Return true if the given `value` is a plain object.
 
@@ -588,7 +660,7 @@ Return true if the given `value` is a plain object.
 //=> 'false'
 ```
 
-### [.hasOwn](./lib/object.js#L151)
+### [.hasOwn](./lib/object.js#L152)
 
 * `object` **{Object}**    
 * `key` **{String}**    
@@ -597,7 +669,7 @@ Return true if the given `value` is a plain object.
 Return true if `key` is an own, enumerable property
 of the given `obj`.
 
-### [.omit](./lib/object.js#L169)
+### [.omit](./lib/object.js#L170)
 
 Return a copy of `object` exclusing the given `keys`.
 
@@ -610,7 +682,7 @@ Return a copy of `object` exclusing the given `keys`.
 //=> '{b: "b"}'
 ```
 
-### [.extend](./lib/object.js#L182)
+### [.extend](./lib/object.js#L183)
 
 * `o` **{Object}**: The target object. Pass an empty object to shallow clone.    
 * `objects` **{Object}**    
@@ -618,7 +690,7 @@ Return a copy of `object` exclusing the given `keys`.
 
 Extend `o` with properties of other `objects`.
 
-### [.merge](./lib/object.js#L211)
+### [.merge](./lib/object.js#L212)
 
 * `o` **{Object}**: The target object. Pass an empty object to shallow clone.    
 * `objects` **{Object}**    
@@ -1071,11 +1143,11 @@ Install dev dependencies.
 npm i -d && npm test
 ```
 
-## Related
-* [handlebars-helpers](https://github.com/assemble/handlebars-helpers): 120+ Handlebars helpers in ~20 categories, for Assemble, YUI, Ghost or any Handlebars project. Includes helpers like {{i18}}, {{markdown}}, {{relative}}, {{extend}}, {{moment}}, and so on.
-
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/jonschlinkert/template-helpers/issues)
+
+## Related
+* [handlebars-helpers](https://github.com/assemble/handlebars-helpers): 120+ Handlebars helpers in ~20 categories, for Assemble, YUI, Ghost or any Handlebars project. Includes helpers like {{i18}}, {{markdown}}, {{relative}}, {{extend}}, {{moment}}, and so on.
 
 ## Author
 
@@ -1090,7 +1162,7 @@ Released under the MIT license
 
 ***
 
-_This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on March 18, 2015._
+_This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on March 25, 2015._
 
 [assemble]: https://github.com/assemble/assemble
 [verb]: https://github.com/assemble/verb
@@ -1098,7 +1170,7 @@ _This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on 
 [word-wrap]: https://github.com/jonschlinkert/word-wrap
 [helper-concat]: https://github.com/helpers/helper-concat
 [path]: https://nodejs.org/api/path.html
-<!-- deps:mocha jshint-stylish helper-reflinks -->
+<!-- deps:mocha jshint-stylish -->
 
 [any]: https://github.com/jonschlinkert/any
 [arr-flatten]: https://github.com/jonschlinkert/arr-flatten
