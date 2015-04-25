@@ -6,9 +6,9 @@ var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
 var verb = require('verb');
 
+/* deps: jshint-stylish */
 verb.task('lint', function () {
-  /* deps:jshint-stylish */
-  return verb.src(['index.js', 'lib/*.js'])
+  verb.src(['index.js', 'lib/*.js'])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('jshint-stylish'));
 });
@@ -21,24 +21,18 @@ verb.task('test', ['lint'], function (cb) {
       verb.src(['test/*.js'])
         .pipe(mocha())
         .on('error', gutil.log)
-        .pipe(istanbul.writeReports())
+        .pipe(istanbul.writeReports({
+          reporters: [ 'text-summary' ],
+          reportOpts: {dir: 'coverage', file: 'summary.txt'}
+        }))
         .on('end', function () {
           cb();
         });
     });
 });
 
-// ignore patterns for excluding TOC headings
-// (passed to the built-in `toc` helper in verb)
-verb.option('toc.ignore', [
-  'Install',
-  'Contributing',
-  'Author',
-  'License'
-]);
-
 verb.task('readme', function () {
-  return verb.src('.verb.md')
+  verb.src('.verb.md')
     .pipe(verb.dest('.'));
 });
 
