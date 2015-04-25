@@ -70,6 +70,30 @@ describe('string helpers', function() {
     });
   });
 
+  describe('stripIndent', function() {
+    it('should return an empty string when undefined.', function() {
+      _.template('<%= stripIndent() %>', imports)().should.equal('');
+    });
+    it('should strip indentation from a string.', function() {
+      var template = _.template('<%= stripIndent(str) %>', imports)({str: [
+        '       - a',
+        '       - b',
+        '         * c',
+        '         * d',
+        '           + e',
+        '           + f',
+      ].join('\n')});
+      template.should.equal([
+        '- a',
+        '- b',
+        '  * c',
+        '  * d',
+        '    + e',
+        '    + f',
+      ].join('\n'));
+    });
+  });
+
   describe('camelcase', function() {
     it('should return an empty string when undefined.', function() {
       _.template('<%= camelcase() %>', imports)().should.equal('');
