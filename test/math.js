@@ -8,10 +8,10 @@
 'use strict';
 
 require('should');
-var helpers = require('..');
+var helpers = require('..')('math');
 var _ = require('lodash');
 
-var imports = {imports: helpers.math};
+var imports = {imports: helpers};
 
 describe('math helpers', function() {
   describe('add', function () {

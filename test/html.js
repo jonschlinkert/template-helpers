@@ -8,10 +8,10 @@
 'use strict';
 
 require('should');
-var helpers = require('..');
+var helpers = require('..')('html');
 var _ = require('lodash');
 
-var imports = {imports: helpers.html};
+var imports = {imports: helpers};
 
 describe('html', function() {
   describe('escapeHtml', function() {

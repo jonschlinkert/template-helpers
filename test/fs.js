@@ -8,10 +8,10 @@
 'use strict';
 
 require('should');
-var helpers = require('..');
+var helpers = require('..')('fs');
 var _ = require('lodash');
 
-var imports = {imports: helpers.fs};
+var imports = {imports: helpers};
 
 describe('code', function() {
   var orig = process.cwd();

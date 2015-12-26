@@ -7,13 +7,13 @@
 
 'use strict';
 
-/* deps:mocha */
+require('mocha');
 require('should');
-var helpers = require('..');
+var helpers = require('..')('array');
 var _ = require('lodash');
 
 var context = {arr: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']};
-var imports = {imports: helpers.array};
+var imports = {imports: helpers};
 
 describe('isArray', function() {
   it('should return true if the value is an array.', function() {

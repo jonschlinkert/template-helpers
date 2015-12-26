@@ -8,10 +8,10 @@
 'use strict';
 
 require('should');
-var helpers = require('..');
+var helpers = require('..')('collection');
 var _ = require('lodash');
 
-var imports = {imports: helpers.collection};
+var imports = {imports: helpers};
 
 describe('collections', function() {
   describe('any', function() {

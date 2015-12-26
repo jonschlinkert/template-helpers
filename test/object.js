@@ -8,11 +8,11 @@
 'use strict';
 
 require('should');
-var helpers = require('..');
+var helpers = require('..')('object');
 var _ = require('lodash');
 
 var context = {obj: {a: 'a', b: 'b', c: {d: {e: 'e'}}}};
-var imports = {imports: helpers.object};
+var imports = {imports: helpers};
 
 describe('objects', function() {
   describe('fallback', function() {

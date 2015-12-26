@@ -8,10 +8,10 @@
 'use strict';
 
 require('should');
-var helpers = require('..');
+var helpers = require('..')('conditional');
 var _ = require('lodash');
 
-var imports = {imports: helpers.conditional};
+var imports = {imports: helpers};
 var context = {
   fn: function (a, b) {
     return this && this.foo === 'abc' ? true : false;

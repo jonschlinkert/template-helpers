@@ -7,13 +7,15 @@
 
 'use strict';
 
+require('should');
 var _ = require('lodash');
 var path = require('path');
-var helpers = require('..');
-require('should');
+var helpers = require('..')(['path', 'object']);
 
-var imports = {imports: helpers.path};
+var imports = {imports: helpers};
+
 helpers.object.extend(imports.imports, helpers);
+helpers.object.extend(imports.imports, helpers.path);
 
 describe('path helpers', function() {
   describe('dirname', function() {

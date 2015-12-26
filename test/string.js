@@ -8,10 +8,10 @@
 'use strict';
 
 var _ = require('lodash');
-var helpers = require('..');
+var helpers = require('..')(['string', 'html']);
 require('should');
 
-var imports = {imports: helpers._};
+var imports = {imports: helpers};
 
 describe('string helpers', function() {
   describe('lowercase', function() {
