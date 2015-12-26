@@ -13,8 +13,8 @@ var _ = require('lodash');
 
 var imports = {imports: helpers};
 var context = {
-  fn: function (a, b) {
-    return this && this.foo === 'abc' ? true : false;
+  fn: function(a, b) {
+    return this && this.foo === 'abc';
   },
   thisArg: {foo: 'abc', bar: 'xyz'}
 };

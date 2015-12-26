@@ -122,7 +122,7 @@ describe('sort', function() {
 
   it('should take a compare function.', function() {
     var o = {};
-    o.compare = function (a, b) {
+    o.compare = function(a, b) {
       return b.localeCompare(a);
     };
     var template = _.template('<%= sort(["b", "c", "a"], compare) %>', imports);

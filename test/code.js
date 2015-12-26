@@ -15,10 +15,10 @@ var imports = {imports: helpers};
 
 describe('code', function() {
   var orig = process.cwd();
-  before(function () {
+  before(function() {
     process.chdir(__dirname + '/fixtures');
   });
-  after(function () {
+  after(function() {
     process.chdir(orig);
   });
 

@@ -69,13 +69,13 @@ describe('objects', function() {
 
   describe('omit', function() {
     it('should omit keys from an object.', function() {
-      var actual = _.template('<%= stringify(omit(obj, ["b", "c"])) %>', imports)(context)
+      var actual = _.template('<%= stringify(omit(obj, ["b", "c"])) %>', imports)(context);
       actual.should.equal('{"a":"a"}');
     });
   });
 
   describe('extend', function() {
-    beforeEach(function () {
+    beforeEach(function() {
       context.foo = {aaa: 'bbb'};
       context.bar = {ccc: 'ddd'};
     });
@@ -102,7 +102,7 @@ describe('objects', function() {
   });
 
   describe('merge', function() {
-    beforeEach(function () {
+    beforeEach(function() {
       context.foo = {aaa: 'bbb', bbb: {ccc: {ddd: 'eee'}}};
       context.bar = {aaa: 'bbb', bbb: {ccc: {eee: 'fff'}}};
       context.baz = {aaa: 'bbb', bbb: {ccc: {fff: 'ggg'}}};

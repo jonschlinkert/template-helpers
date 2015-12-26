@@ -29,7 +29,7 @@ describe('html', function() {
       _.template('<%= sanitize() %>', imports)().should.equal('');
     });
     it('should strip html from a string.', function() {
-      var actual = _.template('<%= sanitize("<span>foo</span>") %>', imports)()
+      var actual = _.template('<%= sanitize("<span>foo</span>") %>', imports)();
       actual.should.equal('foo');
     });
   });

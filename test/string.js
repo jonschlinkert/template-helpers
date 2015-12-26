@@ -81,7 +81,7 @@ describe('string helpers', function() {
         '         * c',
         '         * d',
         '           + e',
-        '           + f',
+        '           + f'
       ].join('\n')});
       template.should.equal([
         '- a',
@@ -89,7 +89,7 @@ describe('string helpers', function() {
         '  * c',
         '  * d',
         '    + e',
-        '    + f',
+        '    + f'
       ].join('\n'));
     });
   });
@@ -299,12 +299,12 @@ describe('string helpers', function() {
       _.template('<%= wordwrap() %>', imports)().should.equal('');
     });
     it('should wrap words to the specified width.', function() {
-      var actual = _.template('<%= wordwrap("a b c d e f", {width: 5}) %>', imports)()
+      var actual = _.template('<%= wordwrap("a b c d e f", {width: 5}) %>', imports)();
       actual.should.equal('  a b c \n  d e f');
     });
 
     it('should use custom newline characters.', function() {
-      var actual = _.template('<%= wordwrap("a b c d e f", {width: 5, newline: "<br>  "}) %>', imports)()
+      var actual = _.template('<%= wordwrap("a b c d e f", {width: 5, newline: "<br>  "}) %>', imports)();
       actual.should.equal('  a b c <br>  d e f');
     });
   });
@@ -315,11 +315,11 @@ describe('string helpers', function() {
       _.template('<%= centerAlign() %>', imports)().should.equal('');
     });
     it('should right align the characters in a string.', function() {
-      var actual = _.template('<%= rightAlign("foo\\nbarbazb") %>', imports)()
+      var actual = _.template('<%= rightAlign("foo\\nbarbazb") %>', imports)();
       actual.should.equal('    foo\nbarbazb');
     });
     it('should center align the characters in a string.', function() {
-      var actual = _.template('<%= centerAlign("foo\\nbarbazb") %>', imports)()
+      var actual = _.template('<%= centerAlign("foo\\nbarbazb") %>', imports)();
       actual.should.equal('  foo\nbarbazb');
     });
   });
@@ -327,17 +327,17 @@ describe('string helpers', function() {
   describe('replace', function() {
     it('should return an empty string when undefined.', function() {
       _.template('<%= replace() %>', imports)().should.equal('');
-    })
+    });
     it('should return the string when no replacement pattern is passed.', function() {
-      var actual = _.template('<%= replace("abcabc") %>', imports)()
+      var actual = _.template('<%= replace("abcabc") %>', imports)();
       actual.should.equal('abcabc');
     });
     it('should replace characters in a string with nothing.', function() {
-      var actual = _.template('<%= replace("abcabc", "a") %>', imports)()
+      var actual = _.template('<%= replace("abcabc", "a") %>', imports)();
       actual.should.equal('bcbc');
     });
     it('should replace characters in a string with a string', function() {
-      var actual = _.template('<%= replace("abcabc", "a", "z") %>', imports)()
+      var actual = _.template('<%= replace("abcabc", "a", "z") %>', imports)();
       actual.should.equal('zbczbc');
     });
   });
