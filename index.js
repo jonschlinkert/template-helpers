@@ -7,7 +7,6 @@
 
 'use strict';
 
-var define = require('define-property');
 var forIn = require('for-in');
 
 /**
