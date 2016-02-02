@@ -7,14 +7,13 @@
 
 'use strict';
 
-var forIn = require('for-in');
-
 /**
  * Expose helpers
  */
 
 module.exports = function(key) {
   var lib = require('./lib');
+  var forIn = lib.object.forIn;
   var helpers = {};
 
   if (typeof key === 'string') {

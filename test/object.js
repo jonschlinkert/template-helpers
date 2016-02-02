@@ -67,6 +67,34 @@ describe('objects', function() {
     });
   });
 
+  describe('forIn', function() {
+    it('should expose the keys on an object.', function() {
+      var context = {values: {a: 'b', c: 'd'}}
+      var actual = _.template('<% forIn(values, function(val, key) { %><%= key %><% }) %>', imports)(context);
+      actual.should.equal('ac');
+    });
+
+    it('should expose the values on an object.', function() {
+      var context = {values: {a: 'b', c: 'd'}}
+      var actual = _.template('<% forIn(values, function(val, key) { %><%= val %><% }) %>', imports)(context);
+      actual.should.equal('bd');
+    });
+  });
+
+  describe('forOwn', function() {
+    it('should expose the keys on an object.', function() {
+      var context = {values: {a: 'b', c: 'd'}}
+      var actual = _.template('<% forOwn(values, function(val, key) { %><%= key %><% }) %>', imports)(context);
+      actual.should.equal('ac');
+    });
+
+    it('should expose the values on an object.', function() {
+      var context = {values: {a: 'b', c: 'd'}}
+      var actual = _.template('<% forOwn(values, function(val, key) { %><%= val %><% }) %>', imports)(context);
+      actual.should.equal('bd');
+    });
+  });
+
   describe('omit', function() {
     it('should omit keys from an object.', function() {
       var actual = _.template('<%= stringify(omit(obj, ["b", "c"])) %>', imports)(context);

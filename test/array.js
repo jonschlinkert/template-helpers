@@ -95,6 +95,30 @@ describe('join', function() {
   });
 });
 
+describe('each', function() {
+  it('should return an empty string when undefined.', function() {
+    _.template('<%= each() %>', imports)().should.equal('');
+  });
+
+  it('should iterate over items in the array and return new values.', function() {
+    var o = {};
+    o.double = function(str) {
+      return str + str;
+    };
+    var template = _.template('<%= each(["a","b","c"], double) %>', imports);
+    template(o).should.equal('aabbcc');
+  });
+
+  it('should expose the given context to each item', function() {
+    var o = {ctx: {sep: ' '}};
+    o.double = function(str) {
+      return str + this.sep + str;
+    };
+    var template = _.template('<%= each(["a","b","c"], double, ctx) %>', imports);
+    template(o).should.equal('a ab bc c');
+  });
+});
+
 describe('map', function() {
   it('should return an empty string when undefined.', function() {
     _.template('<%= map() %>', imports)().should.equal('');
