@@ -10,12 +10,9 @@
 require('should');
 var _ = require('lodash');
 var path = require('path');
-var helpers = require('..')(['path', 'object']);
+var helpers = require('..')('path');
 
 var imports = {imports: helpers};
-
-helpers.object.extend(imports.imports, helpers);
-helpers.object.extend(imports.imports, helpers.path);
 
 describe('path helpers', function() {
   describe('dirname', function() {

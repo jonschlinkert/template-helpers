@@ -18,7 +18,9 @@ module.exports = function(key) {
   var helpers = {};
 
   if (typeof key === 'string') {
-    return lib[key];
+    helpers = lib[key];
+    helpers[key] = helpers;
+    return helpers;
   }
 
   if (Array.isArray(key)) {
@@ -43,4 +45,3 @@ module.exports = function(key) {
 
   return helpers;
 };
-
