@@ -17,7 +17,8 @@ gulp.task('mocha', ['coverage'], function() {
     .pipe(istanbul.writeReports({
       reporters: ['html', 'text', 'text-summary'],
       reportOpts: {dir: 'coverage', file: 'summary.txt'}
-    }));
+    }))
+    .pipe(istanbul.writeReports());
 });
 
 gulp.task('eslint', function() {
