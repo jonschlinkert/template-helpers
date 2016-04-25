@@ -1,26 +1,24 @@
 'use strict';
 
+var link = require('markdown-link');
 var through = require('through2');
 
 module.exports = function(verb, base, env) {
   verb.extendWith('verb-readme-generator');
 
   verb.task('toc', function() {
-    var files = [];
+    var toc = '';
     return verb.src('lib/*.js')
       .pipe(through.obj(function(file, enc, next) {
         if (file.stem !== 'index') {
-          files.push(file);
+          file.base = verb.cwd;
+          toc += '- ' + link(file.stem, '#' + file.stem) + ' ';
+          toc += '(code '+ link(file.stem, file.relative) + ')\n';
         }
         next();
       }, function(next) {
-        var str = '';
-        files.forEach(function(file) {
-          file.base = verb.cwd;
-          str += '- [' + file.stem + '](#' + file.stem + ') '
-          str += '(code [' + file.stem + '](' + file.relative + '))\n';
-        });
-        verb.include('toc.md', {content: str});
+        // create an `include` from the toc
+        verb.include('toc.md', {content: toc});
         next();
       }))
       .pipe(verb.dest('.'));
