@@ -1,7 +1,7 @@
 {
   "name": "template-helpers",
   "description": "Generic JavaScript helpers that can be used with any template engine. Handlebars, Lo-Dash, Underscore, or any engine that supports helper functions.",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "homepage": "https://github.com/jonschlinkert/template-helpers",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/template-helpers",
