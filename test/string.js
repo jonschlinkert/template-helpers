@@ -342,6 +342,16 @@ describe('string helpers', function() {
     });
   });
 
+  describe('titlecase', function() {
+    it('should return an empty string when undefined.', function() {
+      _.template('<%= titlecase("foo") %>', imports)().should.equal('Foo');
+    });
+    it('should upper case the characters in a string.', function() {
+      var template = _.template('<%= titlecase("one two three") %>', imports);
+      template().should.equal('One Two Three');
+    });
+  });
+
   describe('truncate', function() {
     it('should return an empty string when undefined.', function() {
       _.template('<%= truncate() %>', imports)().should.equal('');

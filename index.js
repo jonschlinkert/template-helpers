@@ -26,16 +26,16 @@ module.exports = function(key) {
     return key.reduce(function(acc, k) {
       acc[k] = lib[k];
 
-      forIn(acc[k], function(group, key) {
-        acc[key] = group;
+      forIn(acc[k], function(group, prop) {
+        acc[prop] = group;
       });
 
       return acc;
     }, {});
   }
 
-  forIn(lib, function(group, key) {
-    helpers[key] = group;
+  forIn(lib, function(group, prop) {
+    helpers[prop] = group;
 
     forIn(group, function(v, k) {
       helpers[k] = v;
