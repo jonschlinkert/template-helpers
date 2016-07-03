@@ -70,6 +70,20 @@ describe('string helpers', function() {
     });
   });
 
+  describe('strip', function() {
+    it('should return an empty string when undefined.', function() {
+      _.template('<%= strip() %>', imports)().should.equal('');
+    });
+    it('should strip the given substring from a string.', function() {
+      var template = _.template('<%= strip("foo", "foobar") %>', imports);
+      template().should.equal('bar');
+    });
+    it('should strip the given regex match from a string.', function() {
+      var template = _.template('<%= strip(/^foo/, "foobarfoo") %>', imports);
+      template().should.equal('barfoo');
+    });
+  });
+
   describe('stripIndent', function() {
     it('should return an empty string when undefined.', function() {
       _.template('<%= stripIndent() %>', imports)().should.equal('');
