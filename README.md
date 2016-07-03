@@ -7,7 +7,7 @@ Generic JavaScript helpers that can be used with any template engine. Handlebars
 Install with [npm](https://www.npmjs.com/):
 
 ```sh
-$ npm install template-helpers --save
+$ npm install --save template-helpers
 ```
 
 In addition to the [related projects](#related-projects) listed below, also take a look at the [helpers org](https://github.com/helpers), there are 60+ specialized helpers that can be used individually.
@@ -419,7 +419,7 @@ Generate the HTML for a jsFiddle link with the given `params`
 ### [any](lib/collection.js#L15)
 
 Returns `true` if `value` exists in the given string, array
-or object. See [any] for documentation.
+or object. See [any](https://github.com/jonschlinkert/any) for documentation.
 
 **Params**
 
@@ -1255,7 +1255,23 @@ Split `string` by the given `character`.
 //=> ['a', 'b', 'c']
 ```
 
-### [stripIndent](lib/string.js#L250)
+### [strip](lib/string.js#L250)
+
+Strip `substring` from the given `string`.
+
+**Params**
+
+* `substring` **{String|RegExp}**: The string or regex pattern of the substring to remove.
+* `string` **{String}**: The target string.
+
+**Example**
+
+```js
+<%= strip("foo-bar", "foo-") %>
+//=> 'bar'
+```
+
+### [stripIndent](lib/string.js#L269)
 
 Strip the indentation from a `string`.
 
@@ -1271,7 +1287,7 @@ Strip the indentation from a `string`.
 //=> 'ABC'
 ```
 
-### [trim](lib/string.js#L279)
+### [trim](lib/string.js#L298)
 
 Trim extraneous whitespace from the beginning and end of a string.
 
@@ -1287,9 +1303,9 @@ Trim extraneous whitespace from the beginning and end of a string.
 //=> 'ABC'
 ```
 
-### [dashcase](lib/string.js#L298)
+### [dashcase](lib/string.js#L317)
 
-dash-case the characters in `string`. This is similar to [slugify], but [slugify] makes the string compatible to be used as a URL slug.
+dash-case the characters in `string`. This is similar to [slugify](https://github.com/simov/slugify), but [slugify](https://github.com/simov/slugify) makes the string compatible to be used as a URL slug.
 
 **Params**
 
@@ -1303,7 +1319,7 @@ dash-case the characters in `string`. This is similar to [slugify], but [slugify
 //=> 'a-b-c-d-e'
 ```
 
-### [pathcase](lib/string.js#L320)
+### [pathcase](lib/string.js#L339)
 
 path/case the characters in `string`.
 
@@ -1319,7 +1335,7 @@ path/case the characters in `string`.
 //=> 'a/b/c/d/e'
 ```
 
-### [sentencecase](lib/string.js#L342)
+### [sentencecase](lib/string.js#L361)
 
 Sentence-case the characters in `string`.
 
@@ -1335,7 +1351,7 @@ Sentence-case the characters in `string`.
 //=> 'Foo bar baz.'
 ```
 
-### [hyphenate](lib/string.js#L361)
+### [hyphenate](lib/string.js#L380)
 
 Replace spaces in a string with hyphens. This
 
@@ -1351,7 +1367,7 @@ Replace spaces in a string with hyphens. This
 //=> 'a-b-c'
 ```
 
-### [reverse](lib/string.js#L397)
+### [reverse](lib/string.js#L416)
 
 Reverse the characters in a string.
 
@@ -1367,7 +1383,7 @@ Reverse the characters in a string.
 //=> 'cba'
 ```
 
-### [rightAlign](lib/string.js#L415)
+### [rightAlign](lib/string.js#L434)
 
 Right align the characters in a string using non-breaking spaces.
 
@@ -1382,7 +1398,7 @@ Right align the characters in a string using non-breaking spaces.
 <%= rightAlign(str) %>
 ```
 
-### [replace](lib/string.js#L434)
+### [replace](lib/string.js#L453)
 
 Replace occurrences of `a` with `b`.
 
@@ -1400,7 +1416,7 @@ Replace occurrences of `a` with `b`.
 //=> 'zbczbc'
 ```
 
-### [titlecase](lib/string.js#L456)
+### [titlecase](lib/string.js#L475)
 
 Truncate a string by removing all HTML tags and limiting the result to the specified `length`.
 
@@ -1417,7 +1433,7 @@ Truncate a string by removing all HTML tags and limiting the result to the speci
 //=> 'foo bar'
 ```
 
-### [truncate](lib/string.js#L475)
+### [truncate](lib/string.js#L494)
 
 Truncate a string by removing all HTML tags and limiting the result to the specified `length`.
 
@@ -1434,7 +1450,7 @@ Truncate a string by removing all HTML tags and limiting the result to the speci
 //=> 'foo bar'
 ```
 
-### [uppercase](lib/string.js#L492)
+### [uppercase](lib/string.js#L511)
 
 Uppercase the characters in a string.
 
@@ -1450,7 +1466,7 @@ Uppercase the characters in a string.
 //=> 'ABC'
 ```
 
-### [wordwrap](lib/string.js#L514)
+### [wordwrap](lib/string.js#L533)
 
 Wrap words to a specified width using [word-wrap](https://github.com/jonschlinkert/word-wrap).
 
@@ -1480,29 +1496,29 @@ Lines        : 94.42% ( 389/412 )
 
 You might also be interested in these projects:
 
-* [assemble](https://www.npmjs.com/package/assemble): Assemble is a powerful, extendable and easy to use static site generator for node.js. Used… [more](https://www.npmjs.com/package/assemble) | [homepage](https://github.com/assemble/assemble)
-* [handlebars-helpers](https://www.npmjs.com/package/handlebars-helpers): 120+ Handlebars helpers in ~20 categories, for Assemble, YUI, Ghost or any Handlebars project. Includes… [more](https://www.npmjs.com/package/handlebars-helpers) | [homepage](https://github.com/assemble/handlebars-helpers)
-* [helper-cache](https://www.npmjs.com/package/helper-cache): Easily register and get helper functions to be passed to any template engine or node.js… [more](https://www.npmjs.com/package/helper-cache) | [homepage](https://github.com/jonschlinkert/helper-cache)
-* [template](https://www.npmjs.com/package/template): Render templates using any engine. Supports, layouts, pages, partials and custom template types. Use template… [more](https://www.npmjs.com/package/template) | [homepage](https://github.com/jonschlinkert/template)
+* [assemble](https://www.npmjs.com/package/assemble): Assemble is a powerful, extendable and easy to use static site generator for node.js. Used… [more](https://github.com/assemble/assemble) | [homepage](https://github.com/assemble/assemble)
+* [handlebars-helpers](https://www.npmjs.com/package/handlebars-helpers): More than 130 Handlebars helpers in ~20 categories. Helpers can be used with Assemble, YUI… [more](https://github.com/assemble/handlebars-helpers) | [homepage](https://github.com/assemble/handlebars-helpers)
+* [helper-cache](https://www.npmjs.com/package/helper-cache): Easily register and get helper functions to be passed to any template engine or node.js… [more](https://github.com/jonschlinkert/helper-cache) | [homepage](https://github.com/jonschlinkert/helper-cache)
+* [template](https://www.npmjs.com/package/template): Render templates using any engine. Supports, layouts, pages, partials and custom template types. Use template… [more](https://github.com/jonschlinkert/template) | [homepage](https://github.com/jonschlinkert/template)
 * [utils](https://www.npmjs.com/package/utils): Fast, generic JavaScript/node.js utility functions. | [homepage](https://github.com/jonschlinkert/utils)
-* [verb](https://www.npmjs.com/package/verb): Documentation generator for GitHub projects. Verb is extremely powerful, easy to use, and is used… [more](https://www.npmjs.com/package/verb) | [homepage](https://github.com/verbose/verb)
+* [verb](https://www.npmjs.com/package/verb): Documentation generator for GitHub projects. Verb is extremely powerful, easy to use, and is used… [more](https://github.com/verbose/verb) | [homepage](https://github.com/verbose/verb)
 
 ## Contributing
 
-Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/jonschlinkert/template-helpers/issues/new).
+This document was generated by [verb-readme-generator](https://github.com/verbose/verb-readme-generator) (a [verb](https://github.com/verbose/verb) generator), please don't edit directly. Any changes to the readme must be made in [.verb.md](.verb.md). See [Building Docs](#building-docs).
+
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](../../issues/new).
+
+Or visit the [verb-readme-generator](https://github.com/verbose/verb-readme-generator) project to submit bug reports or pull requests for the readme layout template.
 
 ## Building docs
+
+_(This document was generated by [verb-readme-generator](https://github.com/verbose/verb-readme-generator) (a [verb](https://github.com/verbose/verb) generator), please don't edit the readme directly. Any changes to the readme must be made in [.verb.md](.verb.md).)_
 
 Generate readme and API documentation with [verb](https://github.com/verbose/verb):
 
 ```sh
-$ npm install verb && npm run docs
-```
-
-Or, if [verb](https://github.com/verbose/verb) is installed globally:
-
-```sh
-$ verb
+$ npm install -g verb verb-readme-generator && verb
 ```
 
 ## Running tests
@@ -1527,4 +1543,4 @@ Released under the [MIT license](https://github.com/jonschlinkert/template-helpe
 
 ***
 
-_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on April 25, 2016._
+_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on July 03, 2016._

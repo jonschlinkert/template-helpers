@@ -53,7 +53,8 @@
     "markdown-link": "^0.1.1",
     "mocha": "^2.4.5",
     "should": "^8.3.1",
-    "through2": "^2.0.1"
+    "through2": "^2.0.1",
+    "verb-readme-generator": "^0.1.16"
   },
   "keywords": [
     "compile",
@@ -76,10 +77,13 @@
       "gulp-format-md"
     ],
     "reflinks": [
+      "any",
       "assemble",
       "helper-concat",
+      "slugify",
       "templates",
       "verb",
+      "verb-readme-generator",
       "word-wrap"
     ],
     "related": {

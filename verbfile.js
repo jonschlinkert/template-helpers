@@ -4,7 +4,8 @@ var link = require('markdown-link');
 var through = require('through2');
 
 module.exports = function(verb, base, env) {
-  verb.extendWith('verb-readme-generator');
+  verb.use(require('verb-readme-generator'));
+  verb.disable('toc');
 
   verb.task('toc', function() {
     var toc = '';
