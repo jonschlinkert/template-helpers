@@ -7,6 +7,10 @@ var link = require('markdown-link');
 var through = require('through2');
 var cache = {};
 
+/**
+ * TODO: externalize to `verb-generate-toc`
+ */
+
 module.exports = function(verb, base, env) {
   verb.on('error', console.log);
 
