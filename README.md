@@ -2,6 +2,31 @@
 
 Generic JavaScript helpers that can be used with any template engine. Handlebars, Lo-Dash, Underscore, or any engine that supports helper functions.
 
+- [Install](#install)
+- [Usage](#usage)
+  * [Use with any template engine](#use-with-any-template-engine)
+  * [Namespacing](#namespacing)
+- [API](#api)
+  * [array](#array)
+  * [code](#code)
+  * [collection](#collection)
+  * [conditional](#conditional)
+  * [fs](#fs)
+  * [html](#html)
+  * [index](#index)
+  * [math](#math)
+  * [object](#object)
+  * [path](#path)
+  * [string](#string)
+  * [Code coverage](#code-coverage)
+- [About](#about)
+  * [Related projects](#related-projects)
+  * [Contributing](#contributing)
+  * [Building docs](#building-docs)
+  * [Running tests](#running-tests)
+  * [Author](#author)
+  * [License](#license)
+
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
@@ -65,7 +90,7 @@ Handlebars and Lo-Dash both allow **dot notation** to be used for referencing he
 
 This can be used as a way of working around potential naming conflicts.
 
-# API
+## API
 
 **Categories**
 
@@ -80,9 +105,9 @@ This can be used as a way of working around potential naming conflicts.
 * [path](#path) (code [path](lib/path.js))
 * [string](#string) (code [string](lib/string.js))
 
-## array
+### array
 
-### [isArray](lib/array.js#L22)
+#### [isArray](lib/array.js#L22)
 
 Returns true if `value` is an array.
 
@@ -101,7 +126,7 @@ Returns true if `value` is an array.
 //=> 'true'
 ```
 
-### [arrayify](lib/array.js#L46)
+#### [arrayify](lib/array.js#L46)
 
 Cast `val` to an array.
 
@@ -124,7 +149,7 @@ Cast `val` to an array.
 //=> '["a"]'
 ```
 
-### [first](lib/array.js#L64)
+#### [first](lib/array.js#L64)
 
 Returns the first item, or first `n` items of an array.
 
@@ -141,7 +166,7 @@ Returns the first item, or first `n` items of an array.
 //=> '["a", "b"]'
 ```
 
-### [last](lib/array.js#L87)
+#### [last](lib/array.js#L87)
 
 Returns the last item, or last `n` items of an array.
 
@@ -158,7 +183,7 @@ Returns the last item, or last `n` items of an array.
 //=> '["d", "e"]'
 ```
 
-### [before](lib/array.js#L112)
+#### [before](lib/array.js#L112)
 
 Returns all of the items in an array up to the specified number Opposite of `<%= after() %`.
 
@@ -175,7 +200,7 @@ Returns all of the items in an array up to the specified number Opposite of `<%=
 //=> '["a", "b"]'
 ```
 
-### [after](lib/array.js#L132)
+#### [after](lib/array.js#L132)
 
 Returns all of the items in an arry after the specified index. Opposite of `<%= before() %`.
 
@@ -192,7 +217,7 @@ Returns all of the items in an arry after the specified index. Opposite of `<%= 
 //=> '["c"]'
 ```
 
-### [each](lib/array.js#L159)
+#### [each](lib/array.js#L159)
 
 Calling `fn` on each element of the given `array` with the given `context`.
 
@@ -217,7 +242,7 @@ function double(str) {
 //=> '["aa", "bb", "cc"]'
 ```
 
-### [map](lib/array.js#L202)
+#### [map](lib/array.js#L201)
 
 Returns a new array, created by calling `function` on each element of the given `array`.
 
@@ -242,7 +267,7 @@ function double(str) {
 //=> '["aa", "bb", "cc"]'
 ```
 
-### [join](lib/array.js#L233)
+#### [join](lib/array.js#L232)
 
 Join all elements of array into a string, optionally using a given separator.
 
@@ -262,7 +287,7 @@ Join all elements of array into a string, optionally using a given separator.
 //=> 'a-b-c'
 ```
 
-### [sort](lib/array.js#L258)
+#### [sort](lib/array.js#L257)
 
 Sort the given `array`. If an array of objects is passed, you may optionally pass a `key` to sort on as the second argument. You may alternatively pass a sorting function as the second argument.
 
@@ -281,7 +306,7 @@ Sort the given `array`. If an array of objects is passed, you may optionally pas
 //=> '[{"a":"aaa"},{"a":"zzz"}]'
 ```
 
-### [length](lib/array.js#L292)
+#### [length](lib/array.js#L291)
 
 Returns the length of the given array.
 
@@ -297,7 +322,7 @@ Returns the length of the given array.
 //=> 3
 ```
 
-### [compact](lib/array.js#L310)
+#### [compact](lib/array.js#L309)
 
 Returns an array with all falsey values removed.
 
@@ -313,7 +338,7 @@ Returns an array with all falsey values removed.
 //=> '["a", "b", "c"]'
 ```
 
-### [difference](lib/array.js#L329)
+#### [difference](lib/array.js#L328)
 
 Return the difference between the first array and additional arrays.
 
@@ -330,7 +355,7 @@ Return the difference between the first array and additional arrays.
 //=> '["c"]'
 ```
 
-### [unique](lib/array.js#L365)
+#### [unique](lib/array.js#L364)
 
 Return an array, free of duplicate values.
 
@@ -346,7 +371,7 @@ Return an array, free of duplicate values.
 => '["a", "b", "c"]'
 ```
 
-### [union](lib/array.js#L395)
+#### [union](lib/array.js#L394)
 
 Returns an array of unique values using strict equality for comparisons.
 
@@ -362,7 +387,7 @@ Returns an array of unique values using strict equality for comparisons.
 //=> '["a", "b", "c"]'
 ```
 
-### [shuffle](lib/array.js#L412)
+#### [shuffle](lib/array.js#L411)
 
 Shuffle the items in an array.
 
@@ -378,9 +403,9 @@ Shuffle the items in an array.
 //=> ["c", "a", "b"]
 ```
 
-## code
+### code
 
-### [embed](lib/code.js#L24)
+#### [embed](lib/code.js#L24)
 
 Embed code from an external file as preformatted text.
 
@@ -399,7 +424,7 @@ Embed code from an external file as preformatted text.
 <%= embed('path/to/file.hbs', 'html') %>
 ```
 
-### [jsfiddle](lib/code.js#L48)
+#### [jsfiddle](lib/code.js#L48)
 
 Generate the HTML for a jsFiddle link with the given `params`
 
@@ -414,9 +439,9 @@ Generate the HTML for a jsFiddle link with the given `params`
 <%= jsfiddle({id: '0dfk10ks', {tabs: true}}) %>
 ```
 
-## collection
+### collection
 
-### [any](lib/collection.js#L15)
+#### [any](lib/collection.js#L15)
 
 Returns `true` if `value` exists in the given string, array
 or object. See [any](https://github.com/jonschlinkert/any) for documentation.
@@ -427,9 +452,25 @@ or object. See [any](https://github.com/jonschlinkert/any) for documentation.
 * `target` **{any}**
 * `options` **{Object}**
 
-## conditional
+#### [filter](lib/collection.js#L32)
 
-### [_if](lib/conditional.js#L13)
+Filter the given array or object to contain only the matching values.
+
+**Params**
+
+* `arr` **{Array}**
+* `returns` **{Array}**
+
+**Example**
+
+```js
+<%= filter(['foo', 'bar', 'baz']) %>
+//=> '["a", "b", "c"]'
+```
+
+### conditional
+
+#### [_if](lib/conditional.js#L13)
 
 Return true if `key` is an own, enumerable property
 of the given `obj`.
@@ -440,9 +481,9 @@ of the given `obj`.
 * `key` **{String}**
 * `returns` **{Boolean}**
 
-## fs
+### fs
 
-### [exists](lib/fs.js#L19)
+#### [exists](lib/fs.js#L19)
 
 Return true if a file exists
 
@@ -457,7 +498,7 @@ Return true if a file exists
 <%= exists("foo.js") %>
 ```
 
-### [read](lib/fs.js#L35)
+#### [read](lib/fs.js#L35)
 
 Read a file from the file system and inject its content
 
@@ -472,9 +513,9 @@ Read a file from the file system and inject its content
 <%= read("foo.js") %>
 ```
 
-## html
+### html
 
-### [escapeHtml](lib/html.js#L18)
+#### [escapeHtml](lib/html.js#L18)
 
 Escape HTML characters in a string.
 
@@ -490,7 +531,7 @@ Escape HTML characters in a string.
 //=> &lt;span&gt;foo&lt;&#x2F;span&gt;
 ```
 
-### [sanitize](lib/html.js#L46)
+#### [sanitize](lib/html.js#L46)
 
 Strip HTML tags from a string, so that only the text nodes are preserved.
 
@@ -506,9 +547,9 @@ Strip HTML tags from a string, so that only the text nodes are preserved.
 //=> 'foo'
 ```
 
-## math
+### math
 
-### [add](lib/math.js#L18)
+#### [add](lib/math.js#L18)
 
 Return the product of `a` plus `b`.
 
@@ -524,7 +565,7 @@ Return the product of `a` plus `b`.
 //=> '3'
 ```
 
-### [subtract](lib/math.js#L35)
+#### [subtract](lib/math.js#L35)
 
 Subtract `b` from `a`.
 
@@ -540,7 +581,7 @@ Subtract `b` from `a`.
 //=> '3'
 ```
 
-### [divide](lib/math.js#L53)
+#### [divide](lib/math.js#L53)
 
 Divide `a` (the numerator) by `b` (the divisor).
 
@@ -557,7 +598,7 @@ Divide `a` (the numerator) by `b` (the divisor).
 //=> '5'
 ```
 
-### [multiply](lib/math.js#L71)
+#### [multiply](lib/math.js#L71)
 
 Multiply `a` by `b`.
 
@@ -574,7 +615,7 @@ Multiply `a` by `b`.
 //=> '5'
 ```
 
-### [floor](lib/math.js#L89)
+#### [floor](lib/math.js#L89)
 
 Returns the largest integer less than or equal to the given `number`.
 
@@ -590,7 +631,7 @@ Returns the largest integer less than or equal to the given `number`.
 //=> '10'
 ```
 
-### [ceil](lib/math.js#L107)
+#### [ceil](lib/math.js#L107)
 
 Returns the smallest integer greater than or equal to the given `number`.
 
@@ -606,7 +647,7 @@ Returns the smallest integer greater than or equal to the given `number`.
 //=> '11'
 ```
 
-### [round](lib/math.js#L128)
+#### [round](lib/math.js#L128)
 
 Returns the value of the given `number` rounded to the nearest integer.
 
@@ -625,7 +666,7 @@ Returns the value of the given `number` rounded to the nearest integer.
 //=> '11'
 ```
 
-### [sum](lib/math.js#L145)
+#### [sum](lib/math.js#L145)
 
 Returns the sum of all numbers in the given array.
 
@@ -641,9 +682,9 @@ Returns the sum of all numbers in the given array.
 //=> '15'
 ```
 
-## object
+### object
 
-### [fallback](lib/object.js#L22)
+#### [fallback](lib/object.js#L22)
 
 Specify a fallback value to use when the desired value is undefined. Note that undefined variables that are _not object properties_ with throw an error.
 
@@ -660,7 +701,7 @@ Specify a fallback value to use when the desired value is undefined. Note that u
 <%= fallback(page.title, site.title) %>
 ```
 
-### [stringify](lib/object.js#L39)
+#### [stringify](lib/object.js#L39)
 
 Stringify an object using `JSON.stringify()`.
 
@@ -676,7 +717,7 @@ Stringify an object using `JSON.stringify()`.
 //=> '{"a":"a"}'
 ```
 
-### [parse](lib/object.js#L56)
+#### [parse](lib/object.js#L56)
 
 Parse a string into an object using `JSON.parse()`.
 
@@ -692,7 +733,7 @@ Parse a string into an object using `JSON.parse()`.
 //=> 'bar'
 ```
 
-### [get](lib/object.js#L74)
+#### [get](lib/object.js#L74)
 
 Use property paths (`a.b.c`) get a nested value from an object.
 
@@ -709,7 +750,7 @@ Use property paths (`a.b.c`) get a nested value from an object.
 //=> 'c'
 ```
 
-### [keys](lib/object.js#L91)
+#### [keys](lib/object.js#L91)
 
 Returns an array of keys from the given `object`.
 
@@ -725,7 +766,7 @@ Returns an array of keys from the given `object`.
 //=> '["a", "c"]'
 ```
 
-### [isObject](lib/object.js#L112)
+#### [isObject](lib/object.js#L112)
 
 Return true if the given `value` is an object, and not `null` or an array.
 
@@ -744,7 +785,7 @@ Return true if the given `value` is an object, and not `null` or an array.
 //=> 'true'
 ```
 
-### [isPlainObject](lib/object.js#L135)
+#### [isPlainObject](lib/object.js#L135)
 
 Return true if the given `value` is a plain object.
 
@@ -766,7 +807,7 @@ Return true if the given `value` is a plain object.
 //=> 'false'
 ```
 
-### [hasOwn](lib/object.js#L149)
+#### [hasOwn](lib/object.js#L149)
 
 Return true if `key` is an own, enumerable property
 of the given `obj`.
@@ -777,7 +818,7 @@ of the given `obj`.
 * `key` **{String}**
 * `returns` **{Boolean}**
 
-### [omit](lib/object.js#L167)
+#### [omit](lib/object.js#L167)
 
 Return a copy of `object` exclusing the given `keys`.
 
@@ -794,7 +835,7 @@ Return a copy of `object` exclusing the given `keys`.
 //=> '{b: "b"}'
 ```
 
-### [forIn](lib/object.js#L185)
+#### [forIn](lib/object.js#L185)
 
 Return a copy of `object` exclusing the given `keys`.
 
@@ -811,7 +852,7 @@ Return a copy of `object` exclusing the given `keys`.
 //=> '{b: "b"}'
 ```
 
-### [forOwn](lib/object.js#L207)
+#### [forOwn](lib/object.js#L207)
 
 Return a copy of `object` exclusing the given `keys`.
 
@@ -828,7 +869,7 @@ Return a copy of `object` exclusing the given `keys`.
 //=> '{b: "b"}'
 ```
 
-### [extend](lib/object.js#L224)
+#### [extend](lib/object.js#L224)
 
 Extend `o` with properties of other `objects`.
 
@@ -838,7 +879,7 @@ Extend `o` with properties of other `objects`.
 * `objects` **{Object}**
 * `returns` **{Object}**
 
-### [merge](lib/object.js#L257)
+#### [merge](lib/object.js#L257)
 
 Recursively combine the properties of `o` with the
 properties of other `objects`.
@@ -849,9 +890,9 @@ properties of other `objects`.
 * `objects` **{Object}**
 * `returns` **{Object}**
 
-## path
+### path
 
-### [dirname](lib/path.js#L20)
+#### [dirname](lib/path.js#L20)
 
 Return the dirname for the given `filepath`. Uses the node.js [path](https://nodejs.org/api/path.html) module.
 
@@ -867,7 +908,7 @@ Return the dirname for the given `filepath`. Uses the node.js [path](https://nod
 //=> 'a/b/c'
 ```
 
-### [basename](lib/path.js#L38)
+#### [basename](lib/path.js#L38)
 
 Return the basename for the given `filepath`. Uses the node.js [path](https://nodejs.org/api/path.html) module.
 
@@ -883,7 +924,7 @@ Return the basename for the given `filepath`. Uses the node.js [path](https://no
 //=> 'd.js'
 ```
 
-### [filename](lib/path.js#L56)
+#### [filename](lib/path.js#L56)
 
 Return the filename for the given `filepath`, excluding extension.
 
@@ -899,7 +940,7 @@ Return the filename for the given `filepath`, excluding extension.
 //=> 'd'
 ```
 
-### [extname](lib/path.js#L74)
+#### [extname](lib/path.js#L74)
 
 Return the file extension for the given `filepath`. Uses the node.js [path](https://nodejs.org/api/path.html) module.
 
@@ -915,7 +956,7 @@ Return the file extension for the given `filepath`. Uses the node.js [path](http
 //=> '.js'
 ```
 
-### [ext](lib/path.js#L92)
+#### [ext](lib/path.js#L92)
 
 Return the file extension for the given `filepath`, excluding the `.`.
 
@@ -931,7 +972,7 @@ Return the file extension for the given `filepath`, excluding the `.`.
 //=> 'js'
 ```
 
-### [resolve](lib/path.js#L110)
+#### [resolve](lib/path.js#L110)
 
 Resolves the given paths to an absolute path. Uses the node.js [path](https://nodejs.org/api/path.html) module.
 
@@ -947,7 +988,7 @@ Resolves the given paths to an absolute path. Uses the node.js [path](https://no
 //=> '/foo/bar/baz'
 ```
 
-### [relative](lib/path.js#L129)
+#### [relative](lib/path.js#L129)
 
 Get the relative path from file `a` to file `b`. Typically `a` and `b` would be variables passed on the context. Uses the node.js [path](https://nodejs.org/api/path.html) module.
 
@@ -963,7 +1004,7 @@ Get the relative path from file `a` to file `b`. Typically `a` and `b` would be 
 <%= relative(a, b) %>
 ```
 
-### [segments](lib/path.js#L153)
+#### [segments](lib/path.js#L153)
 
 Get specific (joined) segments of a file path by passing a range of array indices.
 
@@ -985,7 +1026,7 @@ Get specific (joined) segments of a file path by passing a range of array indice
 //=> 'b/c'
 ```
 
-### [join](lib/path.js#L175)
+#### [join](lib/path.js#L175)
 
 Join all arguments together and normalize the resulting `filepath`. Uses the node.js [path](https://nodejs.org/api/path.html) module.
 
@@ -1004,7 +1045,7 @@ can be used with helpers to differentiate. Example: `<%= path.join() %>`.
 //=> 'a/b'
 ```
 
-### [isAbsolute](lib/path.js#L210)
+#### [isAbsolute](lib/path.js#L210)
 
 Returns true if a file path is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory. Uses the node.js [path](https://nodejs.org/api/path.html) module.
 
@@ -1035,7 +1076,7 @@ Returns true if a file path is an absolute path. An absolute path will always re
 //=> 'false'
 ```
 
-### [isRelative](lib/path.js#L245)
+#### [isRelative](lib/path.js#L245)
 
 Returns true if a file path is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory. Uses the node.js [path](https://nodejs.org/api/path.html) module.
 
@@ -1066,9 +1107,9 @@ Returns true if a file path is an absolute path. An absolute path will always re
 //=> 'true'
 ```
 
-## string
+### string
 
-### [camelcase](lib/string.js#L18)
+#### [camelcase](lib/string.js#L18)
 
 camelCase the characters in `string`.
 
@@ -1084,7 +1125,7 @@ camelCase the characters in `string`.
 //=> 'fooBarBaz'
 ```
 
-### [centerAlign](lib/string.js#L45)
+#### [centerAlign](lib/string.js#L45)
 
 Center align the characters in a string using non-breaking spaces.
 
@@ -1099,7 +1140,7 @@ Center align the characters in a string using non-breaking spaces.
 <%= centerAlign("abc") %>
 ```
 
-### [chop](lib/string.js#L69)
+#### [chop](lib/string.js#L69)
 
 Like trim, but removes both extraneous whitespace and non-word characters from the beginning and end of a string.
 
@@ -1121,7 +1162,7 @@ Like trim, but removes both extraneous whitespace and non-word characters from t
 //=> 'ABC'
 ```
 
-### [count](lib/string.js#L90)
+#### [count](lib/string.js#L90)
 
 Count the number of occurrances of a substring within a string.
 
@@ -1138,7 +1179,7 @@ Count the number of occurrances of a substring within a string.
 //=> '3'
 ```
 
-### [dotcase](lib/string.js#L110)
+#### [dotcase](lib/string.js#L110)
 
 dot.case the characters in `string`.
 
@@ -1154,7 +1195,7 @@ dot.case the characters in `string`.
 //=> 'a.b.c.d.e'
 ```
 
-### [ellipsis](lib/string.js#L135)
+#### [ellipsis](lib/string.js#L135)
 
 Truncate a string to the specified `length`, and append it with an elipsis, `…`.
 
@@ -1172,7 +1213,7 @@ Truncate a string to the specified `length`, and append it with an elipsis, `…
 //=> 'foo bar…'
 ```
 
-### [isString](lib/string.js#L157)
+#### [isString](lib/string.js#L157)
 
 Returns true if the value is a string.
 
@@ -1191,7 +1232,7 @@ Returns true if the value is a string.
 //=> 'false'
 ```
 
-### [lowercase](lib/string.js#L174)
+#### [lowercase](lib/string.js#L174)
 
 Lowercase the characters in the given `string`.
 
@@ -1207,7 +1248,7 @@ Lowercase the characters in the given `string`.
 //=> 'abc'
 ```
 
-### [pascalcase](lib/string.js#L191)
+#### [pascalcase](lib/string.js#L191)
 
 PascalCase the characters in `string`.
 
@@ -1223,7 +1264,7 @@ PascalCase the characters in `string`.
 //=> 'FooBarBaz'
 ```
 
-### [snakecase](lib/string.js#L211)
+#### [snakecase](lib/string.js#L211)
 
 snake_case the characters in `string`.
 
@@ -1239,7 +1280,7 @@ snake_case the characters in `string`.
 //=> 'a_b_c_d_e'
 ```
 
-### [split](lib/string.js#L233)
+#### [split](lib/string.js#L233)
 
 Split `string` by the given `character`.
 
@@ -1255,7 +1296,7 @@ Split `string` by the given `character`.
 //=> ['a', 'b', 'c']
 ```
 
-### [strip](lib/string.js#L250)
+#### [strip](lib/string.js#L250)
 
 Strip `substring` from the given `string`.
 
@@ -1271,7 +1312,7 @@ Strip `substring` from the given `string`.
 //=> 'bar'
 ```
 
-### [stripIndent](lib/string.js#L269)
+#### [stripIndent](lib/string.js#L269)
 
 Strip the indentation from a `string`.
 
@@ -1287,7 +1328,7 @@ Strip the indentation from a `string`.
 //=> 'ABC'
 ```
 
-### [trim](lib/string.js#L298)
+#### [trim](lib/string.js#L298)
 
 Trim extraneous whitespace from the beginning and end of a string.
 
@@ -1303,7 +1344,7 @@ Trim extraneous whitespace from the beginning and end of a string.
 //=> 'ABC'
 ```
 
-### [dashcase](lib/string.js#L317)
+#### [dashcase](lib/string.js#L317)
 
 dash-case the characters in `string`. This is similar to [slugify](https://github.com/simov/slugify), but [slugify](https://github.com/simov/slugify) makes the string compatible to be used as a URL slug.
 
@@ -1319,7 +1360,7 @@ dash-case the characters in `string`. This is similar to [slugify](https://githu
 //=> 'a-b-c-d-e'
 ```
 
-### [pathcase](lib/string.js#L339)
+#### [pathcase](lib/string.js#L339)
 
 path/case the characters in `string`.
 
@@ -1335,7 +1376,7 @@ path/case the characters in `string`.
 //=> 'a/b/c/d/e'
 ```
 
-### [sentencecase](lib/string.js#L361)
+#### [sentencecase](lib/string.js#L361)
 
 Sentence-case the characters in `string`.
 
@@ -1351,7 +1392,7 @@ Sentence-case the characters in `string`.
 //=> 'Foo bar baz.'
 ```
 
-### [hyphenate](lib/string.js#L380)
+#### [hyphenate](lib/string.js#L380)
 
 Replace spaces in a string with hyphens. This
 
@@ -1367,7 +1408,7 @@ Replace spaces in a string with hyphens. This
 //=> 'a-b-c'
 ```
 
-### [reverse](lib/string.js#L416)
+#### [reverse](lib/string.js#L416)
 
 Reverse the characters in a string.
 
@@ -1383,7 +1424,7 @@ Reverse the characters in a string.
 //=> 'cba'
 ```
 
-### [rightAlign](lib/string.js#L434)
+#### [rightAlign](lib/string.js#L434)
 
 Right align the characters in a string using non-breaking spaces.
 
@@ -1398,7 +1439,7 @@ Right align the characters in a string using non-breaking spaces.
 <%= rightAlign(str) %>
 ```
 
-### [replace](lib/string.js#L453)
+#### [replace](lib/string.js#L453)
 
 Replace occurrences of `a` with `b`.
 
@@ -1416,7 +1457,7 @@ Replace occurrences of `a` with `b`.
 //=> 'zbczbc'
 ```
 
-### [titlecase](lib/string.js#L475)
+#### [titlecase](lib/string.js#L475)
 
 Truncate a string by removing all HTML tags and limiting the result to the specified `length`.
 
@@ -1433,7 +1474,7 @@ Truncate a string by removing all HTML tags and limiting the result to the speci
 //=> 'foo bar'
 ```
 
-### [truncate](lib/string.js#L494)
+#### [truncate](lib/string.js#L494)
 
 Truncate a string by removing all HTML tags and limiting the result to the specified `length`.
 
@@ -1450,7 +1491,7 @@ Truncate a string by removing all HTML tags and limiting the result to the speci
 //=> 'foo bar'
 ```
 
-### [uppercase](lib/string.js#L511)
+#### [uppercase](lib/string.js#L511)
 
 Uppercase the characters in a string.
 
@@ -1466,7 +1507,7 @@ Uppercase the characters in a string.
 //=> 'ABC'
 ```
 
-### [wordwrap](lib/string.js#L533)
+#### [wordwrap](lib/string.js#L533)
 
 Wrap words to a specified width using [word-wrap](https://github.com/jonschlinkert/word-wrap).
 
@@ -1483,7 +1524,7 @@ Wrap words to a specified width using [word-wrap](https://github.com/jonschlinke
 //=> '  a b c <br>  d e f'
 ```
 
-## Code coverage
+### Code coverage
 
 ```
 Statements   : 94.61% ( 439/464 )
@@ -1492,26 +1533,24 @@ Functions    : 96.94% ( 95/98 )
 Lines        : 94.42% ( 389/412 )
 ```
 
-## Related projects
+## About
+
+### Related projects
 
 You might also be interested in these projects:
 
-* [assemble](https://www.npmjs.com/package/assemble): Assemble is a powerful, extendable and easy to use static site generator for node.js. Used… [more](https://github.com/assemble/assemble) | [homepage](https://github.com/assemble/assemble)
-* [handlebars-helpers](https://www.npmjs.com/package/handlebars-helpers): More than 130 Handlebars helpers in ~20 categories. Helpers can be used with Assemble, YUI… [more](https://github.com/assemble/handlebars-helpers) | [homepage](https://github.com/assemble/handlebars-helpers)
-* [helper-cache](https://www.npmjs.com/package/helper-cache): Easily register and get helper functions to be passed to any template engine or node.js… [more](https://github.com/jonschlinkert/helper-cache) | [homepage](https://github.com/jonschlinkert/helper-cache)
-* [template](https://www.npmjs.com/package/template): Render templates using any engine. Supports, layouts, pages, partials and custom template types. Use template… [more](https://github.com/jonschlinkert/template) | [homepage](https://github.com/jonschlinkert/template)
-* [utils](https://www.npmjs.com/package/utils): Fast, generic JavaScript/node.js utility functions. | [homepage](https://github.com/jonschlinkert/utils)
-* [verb](https://www.npmjs.com/package/verb): Documentation generator for GitHub projects. Verb is extremely powerful, easy to use, and is used… [more](https://github.com/verbose/verb) | [homepage](https://github.com/verbose/verb)
+* [assemble](https://www.npmjs.com/package/assemble): Assemble is a powerful, extendable and easy to use static site generator for node.js. Used… [more](https://github.com/assemble/assemble) | [homepage](https://github.com/assemble/assemble "Assemble is a powerful, extendable and easy to use static site generator for node.js. Used by thousands of projects for much more than building websites, Assemble is also used for creating themes, scaffolds, boilerplates, e-books, UI components, API docum")
+* [handlebars-helpers](https://www.npmjs.com/package/handlebars-helpers): More than 130 Handlebars helpers in ~20 categories. Helpers can be used with Assemble, Generate… [more](https://github.com/assemble/handlebars-helpers) | [homepage](https://github.com/assemble/handlebars-helpers "More than 130 Handlebars helpers in ~20 categories. Helpers can be used with Assemble, Generate, Verb, Ghost, gulp-handlebars, grunt-handlebars, consolidate, or any node.js/Handlebars project.")
+* [helper-cache](https://www.npmjs.com/package/helper-cache): Easily register and get helper functions to be passed to any template engine or node.js… [more](https://github.com/jonschlinkert/helper-cache) | [homepage](https://github.com/jonschlinkert/helper-cache "Easily register and get helper functions to be passed to any template engine or node.js application. Methods for both sync and async helpers.")
+* [template](https://www.npmjs.com/package/template): Render templates using any engine. Supports, layouts, pages, partials and custom template types. Use template… [more](https://github.com/jonschlinkert/template) | [homepage](https://github.com/jonschlinkert/template "Render templates using any engine. Supports, layouts, pages, partials and custom template types. Use template helpers, middleware, routes, loaders, and lots more. Powers assemble, verb and other node.js apps.")
+* [utils](https://www.npmjs.com/package/utils): Fast, generic JavaScript/node.js utility functions. | [homepage](https://github.com/jonschlinkert/utils "Fast, generic JavaScript/node.js utility functions.")
+* [verb](https://www.npmjs.com/package/verb): Documentation generator for GitHub projects. Verb is extremely powerful, easy to use, and is used… [more](https://github.com/verbose/verb) | [homepage](https://github.com/verbose/verb "Documentation generator for GitHub projects. Verb is extremely powerful, easy to use, and is used on hundreds of projects of all sizes to generate everything from API docs to readmes.")
 
-## Contributing
-
-This document was generated by [verb-readme-generator](https://github.com/verbose/verb-readme-generator) (a [verb](https://github.com/verbose/verb) generator), please don't edit directly. Any changes to the readme must be made in [.verb.md](.verb.md). See [Building Docs](#building-docs).
+### Contributing
 
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](../../issues/new).
 
-Or visit the [verb-readme-generator](https://github.com/verbose/verb-readme-generator) project to submit bug reports or pull requests for the readme layout template.
-
-## Building docs
+### Building docs
 
 _(This document was generated by [verb-readme-generator](https://github.com/verbose/verb-readme-generator) (a [verb](https://github.com/verbose/verb) generator), please don't edit the readme directly. Any changes to the readme must be made in [.verb.md](.verb.md).)_
 
@@ -1521,7 +1560,7 @@ Generate readme and API documentation with [verb](https://github.com/verbose/ver
 $ npm install -g verb verb-readme-generator && verb
 ```
 
-## Running tests
+### Running tests
 
 Install dev dependencies:
 
@@ -1529,18 +1568,18 @@ Install dev dependencies:
 $ npm install -d && npm test
 ```
 
-## Author
+### Author
 
 **Jon Schlinkert**
 
 * [github/jonschlinkert](https://github.com/jonschlinkert)
 * [twitter/jonschlinkert](http://twitter.com/jonschlinkert)
 
-## License
+### License
 
 Copyright © 2016, [Jon Schlinkert](https://github.com/jonschlinkert).
 Released under the [MIT license](https://github.com/jonschlinkert/template-helpers/blob/master/LICENSE).
 
 ***
 
-_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on July 03, 2016._
+_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on July 11, 2016._
