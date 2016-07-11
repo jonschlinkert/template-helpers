@@ -7,10 +7,9 @@
 
 'use strict';
 
-require('should');
 var helpers = require('..')('code');
-var _ = require('lodash');
-
+var assert = require('assert');
+var template = require('lodash.template');
 var imports = {imports: helpers};
 
 describe('code', function() {
@@ -24,18 +23,16 @@ describe('code', function() {
 
   describe('jsfiddle', function() {
     it('should return an empty string with no args.', function() {
-      _.template('<%= jsfiddle() %>', imports)()
-      .should.equal('');
+      assert.equal(template('<%= jsfiddle() %>', imports)(), '');
     });
 
     it('should return create a jsfiddle link.', function() {
-      _.template('<%= jsfiddle({id: "c0th6weq", tabs: true}) %>', imports)()
-      .should.equal('<iframe width="100%" height="300" src="http://jsfiddle.net/c0th6weq/embedded/true/presentation/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>');
+      assert.equal(template('<%= jsfiddle({id: "c0th6weq", tabs: true}) %>', imports)(), '<iframe width="100%" height="300" src="http://jsfiddle.net/c0th6weq/embedded/true/presentation/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>');
     });
   });
   describe('embed', function() {
     it('should return create a code example from the given file.', function() {
-      _.template('<%= embed("a.js") %>', imports)({}).should.equal([
+      assert.equal(template('<%= embed("a.js") %>', imports)({}), [
         '```js',
         'function foo(a, b, c) {',
         '  return a + b + c;',
@@ -45,7 +42,7 @@ describe('code', function() {
     });
 
     it('should use the extension specified as a second argument.', function() {
-      _.template('<%= embed("a.js", "javascript") %>', imports)().should.equal([
+      assert.equal(template('<%= embed("a.js", "javascript") %>', imports)(), [
         '```javascript',
         'function foo(a, b, c) {',
         '  return a + b + c;',
@@ -55,7 +52,7 @@ describe('code', function() {
     });
 
     it('should escape backticks in markdown.', function() {
-      _.template('<%= embed("a.md", "md") %>', imports)().should.equal([
+      assert.equal(template('<%= embed("a.md", "md") %>', imports)(), [
         '```md',
         '&#x60&#x60&#x60',
         'foo',

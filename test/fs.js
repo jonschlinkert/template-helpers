@@ -9,24 +9,24 @@
 
 var assert = require('assert');
 var helpers = require('..')('fs');
-var _ = require('lodash');
+var template = require('lodash.template');
 
 var imports = { imports: helpers };
 
 describe('fs', function() {
   describe('exists', function() {
     it('should return false when the file does not exist.', function() {
-      assert.equal(_.template('<%= exists("fooosos.js") %>', imports)(), 'false');
+      assert.equal(template('<%= exists("fooosos.js") %>', imports)(), 'false');
     });
   });
 
   describe('read', function() {
     it('should return an empty string when the file does not exist.', function() {
-      assert.equal(_.template('<%= read("fooosos.js") %>', imports)(), '');
+      assert.equal(template('<%= read("fooosos.js") %>', imports)(), '');
     });
 
     it('should read a file and inject its content.', function() {
-      assert.equal(_.template('<%= read("test/fixtures/a.js") %>', imports)(), [
+      assert.equal(template('<%= read("test/fixtures/a.js") %>', imports)(), [
         'function foo(a, b, c) {',
         '  return a + b + c;',
         '}'

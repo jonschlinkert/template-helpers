@@ -7,9 +7,9 @@
 
 'use strict';
 
-require('should');
+var assert = require('assert');
 var helpers = require('..')('conditional');
-var _ = require('lodash');
+var template = require('lodash.template');
 
 var imports = {imports: helpers};
 var context = {
@@ -22,13 +22,13 @@ var context = {
 describe('conditional', function() {
   describe('if', function() {
     it('should return an empty string when the first arg is not a function.', function() {
-      _.template('<%= _if("foo", "bar", thisArg) %>', imports)(context).should.equal('');
+      assert.equal(template('<%= _if("foo", "bar", thisArg) %>', imports)(context), '');
     });
     it('should return the first value when `fn` returns true.', function() {
-      _.template('<%= _if(fn, "foo", "bar", thisArg) %>', imports)(context).should.equal('foo');
+      assert.equal(template('<%= _if(fn, "foo", "bar", thisArg) %>', imports)(context), 'foo');
     });
     it('should return the second value when `fn` returns false.', function() {
-      _.template('<%= _if(fn, "foo", "bar") %>', imports)(context).should.equal('bar');
+      assert.equal(template('<%= _if(fn, "foo", "bar") %>', imports)(context), 'bar');
     });
   });
 });

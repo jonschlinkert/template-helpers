@@ -7,30 +7,30 @@
 
 'use strict';
 
-require('should');
+var assert = require('assert');
 var helpers = require('..')('html');
-var _ = require('lodash');
+var template = require('lodash.template');
 
 var imports = {imports: helpers};
 
 describe('html', function() {
   describe('escapeHtml', function() {
     it('should return an empty string when undefined.', function() {
-      _.template('<%= escapeHtml() %>', imports)().should.equal('');
+      assert.equal(template('<%= escapeHtml() %>', imports)(), '');
     });
 
     it('should return create a code example from the given file.', function() {
-      _.template('<%= escapeHtml("<span>foo</span>") %>', imports)().should.equal('&lt;span&gt;foo&lt;&#x2F;span&gt;');
+      assert.equal(template('<%= escapeHtml("<span>foo</span>") %>', imports)(), '&lt;span&gt;foo&lt;&#x2F;span&gt;');
     });
   });
 
   describe('sanitize', function() {
     it('should return an empty string when undefined.', function() {
-      _.template('<%= sanitize() %>', imports)().should.equal('');
+      assert.equal(template('<%= sanitize() %>', imports)(), '');
     });
     it('should strip html from a string.', function() {
-      var actual = _.template('<%= sanitize("<span>foo</span>") %>', imports)();
-      actual.should.equal('foo');
+      var actual = template('<%= sanitize("<span>foo</span>") %>', imports)();
+      assert.equal(actual, 'foo');
     });
   });
 });

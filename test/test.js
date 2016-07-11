@@ -7,7 +7,6 @@
 
 'use strict';
 
-require('should');
 var assert = require('assert');
 var lib = require('..');
 var helpers;
