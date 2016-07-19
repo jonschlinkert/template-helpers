@@ -30,6 +30,7 @@
     "export-files": "^2.1.1",
     "fs-exists-sync": "^0.1.0",
     "get-value": "^2.0.6",
+    "helper-slugify": "^0.2.0",
     "is-absolute": "^0.2.5",
     "is-number": "^2.1.0",
     "is-plain-object": "^2.0.1",
@@ -39,6 +40,7 @@
     "object.omit": "^2.0.0",
     "relative": "^3.0.2",
     "right-align": "^0.1.3",
+    "strip-color": "^0.1.0",
     "titlecase": "^1.1.2",
     "to-gfm-code-block": "^0.1.1",
     "word-wrap": "^1.1.0"
@@ -54,7 +56,7 @@
     "markdown-link": "^0.1.1",
     "mocha": "^2.5.3",
     "through2": "^2.0.1",
-    "verb-generate-readme": "^0.1.21"
+    "verb-generate-readme": "^0.1.26"
   },
   "keywords": [
     "compile",
@@ -83,9 +85,8 @@
       "slugify",
       "templates",
       "verb",
-      "verb-readme-generator",
-      "word-wrap",
-      "verb-generate-readme"
+      "verb-generate-readme",
+      "word-wrap"
     ],
     "related": {
       "list": [

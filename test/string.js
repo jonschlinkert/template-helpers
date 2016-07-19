@@ -271,17 +271,19 @@ describe('string helpers', function() {
     it('should return an empty string when undefined.', function() {
       assert.equal(template('<%= slugify() %>', imports)(), '');
     });
+
     it('should slugify the characters in a string.', function() {
       assert.equal(template('<%= slugify("foo bar baz") %>', imports)(), 'foo-bar-baz');
     });
+
     it('should work with hyphens.', function() {
       assert.equal(template('<%= slugify("foo-bar-baz") %>', imports)(), 'foo-bar-baz');
-      assert.equal(template('<%= slugify("-foo bar baz-") %>', imports)(), 'foo-bar-baz');
+      assert.equal(template('<%= slugify("-foo bar baz-") %>', imports)(), '-foo-bar-baz-');
     });
 
     it('should work with other non-word characters.', function() {
-      assert.equal(template('<%= slugify("9foo-bar_baz") %>', imports)(), '9foo-bar-baz');
-      assert.equal(template('<%= slugify("_foo_bar_baz-") %>', imports)(), 'foo-bar-baz');
+      assert.equal(template('<%= slugify("9foo-bar_baz") %>', imports)(), '9foo-bar_baz');
+      assert.equal(template('<%= slugify("_foo_bar_baz-") %>', imports)(), '_foo_bar_baz-');
     });
   });
 
