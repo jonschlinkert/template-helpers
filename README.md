@@ -222,9 +222,9 @@ Visit the: [code](lib/string.js) | [unit tests](test/string.js) | [issues](https
 * **[camelcase](#camelcase)** ([code](lib/string.js#L18) | [unit tests](test/string.js#L111))
 * **[centerAlign](#centerAlign)** ([code](lib/string.js#L45) | [no tests])
 * **[chop](#chop)** ([code](lib/string.js#L69) | [unit tests](test/string.js#L51))
-* **[count](#count)** ([code](lib/string.js#L90) | [unit tests](test/string.js#L288))
+* **[count](#count)** ([code](lib/string.js#L90) | [unit tests](test/string.js#L290))
 * **[dotcase](#dotcase)** ([code](lib/string.js#L110) | [unit tests](test/string.js#L175))
-* **[ellipsis](#ellipsis)** ([code](lib/string.js#L135) | [unit tests](test/string.js#L379))
+* **[ellipsis](#ellipsis)** ([code](lib/string.js#L135) | [unit tests](test/string.js#L381))
 * **[isString](#isString)** ([code](lib/string.js#L157) | [no tests])
 * **[lower](#lower)** ([code](lib/string.js#L174) | [unit tests](test/string.js#L17))
 * **[lowercase](#lowercase)** ([code](lib/string.js#L174) | [unit tests](test/string.js#L17))
@@ -239,15 +239,15 @@ Visit the: [code](lib/string.js) | [unit tests](test/string.js) | [issues](https
 * **[sentencecase](#sentencecase)** ([code](lib/string.js#L361) | [unit tests](test/string.js#L238))
 * **[hyphenate](#hyphenate)** ([code](lib/string.js#L380) | [unit tests](test/string.js#L252))
 * **[slugify](#slugify)** ([code](lib/string.js#L399) | [unit tests](test/string.js#L270))
-* **[reverse](#reverse)** ([code](lib/string.js#L416) | [unit tests](test/string.js#L302))
-* **[rightAlign](#rightAlign)** ([code](lib/string.js#L434) | [no tests])
-* **[replace](#replace)** ([code](lib/string.js#L453) | [unit tests](test/string.js#L341))
+* **[reverse](#reverse)** ([code](lib/string.js#L414) | [unit tests](test/string.js#L304))
+* **[rightAlign](#rightAlign)** ([code](lib/string.js#L432) | [no tests])
+* **[replace](#replace)** ([code](lib/string.js#L451) | [unit tests](test/string.js#L343))
 * **[titleize](#titleize)** ([code](lib/string.js#Lundefined) | [no tests])
-* **[titlecase](#titlecase)** ([code](lib/string.js#L475) | [unit tests](test/string.js#L359))
-* **[truncate](#truncate)** ([code](lib/string.js#L494) | [unit tests](test/string.js#L369))
-* **[upper](#upper)** ([code](lib/string.js#L511) | [unit tests](test/string.js#L27))
-* **[uppercase](#uppercase)** ([code](lib/string.js#L511) | [unit tests](test/string.js#L27))
-* **[wordwrap](#wordwrap)** ([code](lib/string.js#L533) | [unit tests](test/string.js#L311))
+* **[titlecase](#titlecase)** ([code](lib/string.js#L473) | [unit tests](test/string.js#L361))
+* **[truncate](#truncate)** ([code](lib/string.js#L492) | [unit tests](test/string.js#L371))
+* **[upper](#upper)** ([code](lib/string.js#L509) | [unit tests](test/string.js#L27))
+* **[uppercase](#uppercase)** ([code](lib/string.js#L509) | [unit tests](test/string.js#L27))
+* **[wordwrap](#wordwrap)** ([code](lib/string.js#L531) | [unit tests](test/string.js#L313))
 
 ### array
 
@@ -1552,7 +1552,7 @@ Replace spaces in a string with hyphens. This
 //=> 'a-b-c'
 ```
 
-#### [reverse](lib/string.js#L416)
+#### [reverse](lib/string.js#L414)
 
 Reverse the characters in a string.
 
@@ -1568,7 +1568,7 @@ Reverse the characters in a string.
 //=> 'cba'
 ```
 
-#### [rightAlign](lib/string.js#L434)
+#### [rightAlign](lib/string.js#L432)
 
 Right align the characters in a string using non-breaking spaces.
 
@@ -1583,7 +1583,7 @@ Right align the characters in a string using non-breaking spaces.
 <%= rightAlign(str) %>
 ```
 
-#### [replace](lib/string.js#L453)
+#### [replace](lib/string.js#L451)
 
 Replace occurrences of `a` with `b`.
 
@@ -1601,7 +1601,7 @@ Replace occurrences of `a` with `b`.
 //=> 'zbczbc'
 ```
 
-#### [titlecase](lib/string.js#L475)
+#### [titlecase](lib/string.js#L473)
 
 Truncate a string by removing all HTML tags and limiting the result to the specified `length`.
 
@@ -1618,7 +1618,7 @@ Truncate a string by removing all HTML tags and limiting the result to the speci
 //=> 'foo bar'
 ```
 
-#### [truncate](lib/string.js#L494)
+#### [truncate](lib/string.js#L492)
 
 Truncate a string by removing all HTML tags and limiting the result to the specified `length`.
 
@@ -1635,7 +1635,7 @@ Truncate a string by removing all HTML tags and limiting the result to the speci
 //=> 'foo bar'
 ```
 
-#### [uppercase](lib/string.js#L511)
+#### [uppercase](lib/string.js#L509)
 
 Uppercase the characters in a string.
 
@@ -1651,7 +1651,7 @@ Uppercase the characters in a string.
 //=> 'ABC'
 ```
 
-#### [wordwrap](lib/string.js#L533)
+#### [wordwrap](lib/string.js#L531)
 
 Wrap words to a specified width using [word-wrap](https://github.com/jonschlinkert/word-wrap).
 
@@ -1681,7 +1681,7 @@ Lines        : 94.42% ( 389/412 )
 
 ### Related projects
 
-* [assemble](https://www.npmjs.com/package/assemble): Assemble is a powerful, extendable and easy to use static site generator for node.js. Used… [more](https://github.com/assemble/assemble) | [homepage](https://github.com/assemble/assemble "Assemble is a powerful, extendable and easy to use static site generator for node.js. Used by thousands of projects for much more than building websites, Assemble is also used for creating themes, scaffolds, boilerplates, e-books, UI components, API docum")
+* [assemble](https://www.npmjs.com/package/assemble): Get the rocks out of your socks! Assemble makes you fast at creating web projects… [more](https://github.com/assemble/assemble) | [homepage](https://github.com/assemble/assemble "Get the rocks out of your socks! Assemble makes you fast at creating web projects. Assemble is used by thousands of projects for rapid prototyping, creating themes, scaffolds, boilerplates, e-books, UI components, API documentation, blogs, building websit")
 * [handlebars-helpers](https://www.npmjs.com/package/handlebars-helpers): More than 130 Handlebars helpers in ~20 categories. Helpers can be used with Assemble, Generate… [more](https://github.com/assemble/handlebars-helpers) | [homepage](https://github.com/assemble/handlebars-helpers "More than 130 Handlebars helpers in ~20 categories. Helpers can be used with Assemble, Generate, Verb, Ghost, gulp-handlebars, grunt-handlebars, consolidate, or any node.js/Handlebars project.")
 * [helper-cache](https://www.npmjs.com/package/helper-cache): Easily register and get helper functions to be passed to any template engine or node.js… [more](https://github.com/jonschlinkert/helper-cache) | [homepage](https://github.com/jonschlinkert/helper-cache "Easily register and get helper functions to be passed to any template engine or node.js application. Methods for both sync and async helpers.")
 * [template](https://www.npmjs.com/package/template): Render templates using any engine. Supports, layouts, pages, partials and custom template types. Use template… [more](https://github.com/jonschlinkert/template) | [homepage](https://github.com/jonschlinkert/template "Render templates using any engine. Supports, layouts, pages, partials and custom template types. Use template helpers, middleware, routes, loaders, and lots more. Powers assemble, verb and other node.js apps.")
@@ -1694,7 +1694,7 @@ Pull requests and stars are always welcome. For bugs and feature requests, [plea
 
 ### Building docs
 
-_(This document was generated by [verb-generate-readme][] (a [verb](https://github.com/verbose/verb) generator), please don't edit the readme directly. Any changes to the readme must be made in [.verb.md](.verb.md).)_
+_(This document was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme) (a [verb](https://github.com/verbose/verb) generator), please don't edit the readme directly. Any changes to the readme must be made in [.verb.md](.verb.md).)_
 
 To generate the readme and API documentation with [verb](https://github.com/verbose/verb):
 
@@ -1724,6 +1724,4 @@ Released under the [MIT license](https://github.com/jonschlinkert/template-helpe
 
 ***
 
-_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on July 12, 2016._
-
-[verb-generate-readme]: https://github.com/verbose/verb-generate-readme
+_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on July 19, 2016._
