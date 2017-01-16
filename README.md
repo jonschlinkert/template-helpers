@@ -1,4 +1,5 @@
 # template-helpers [![NPM version](https://img.shields.io/npm/v/template-helpers.svg?style=flat)](https://www.npmjs.com/package/template-helpers) [![NPM downloads](https://img.shields.io/npm/dm/template-helpers.svg?style=flat)](https://npmjs.org/package/template-helpers) [![Build Status](https://img.shields.io/travis/jonschlinkert/template-helpers.svg?style=flat)](https://travis-ci.org/jonschlinkert/template-helpers)
+[![Known Vulnerabilities](https://snyk.io/test/github/jonschlinkert/template-helpers/badge.svg)](https://snyk.io/test/github/jonschlinkert/template-helpers)
 
 Generic JavaScript helpers that can be used with any template engine. Handlebars, Lo-Dash, Underscore, or any engine that supports helper functions.
 
