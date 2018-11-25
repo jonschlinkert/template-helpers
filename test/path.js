@@ -7,13 +7,18 @@
 
 'use strict';
 
-var path = require('path');
-var assert = require('assert');
-var template = require('lodash.template');
-var helpers = require('..')('path');
-var imports = { imports: helpers };
+const path = require('path');
+const assert = require('assert');
+const template = require('lodash.template');
+const helpers = require('..')('path');
+const imports = { imports: helpers };
 
 describe('path helpers', function() {
+  if (process.platform === 'win32') {
+    this.skip();
+    return;
+  }
+
   describe('dirname', function() {
     it('should return the dirname:', function() {
       assert.strictEqual(template('<%= dirname("a/b/c/e.js") %>', imports)(), 'a/b/c');
