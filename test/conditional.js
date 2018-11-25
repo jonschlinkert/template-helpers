@@ -31,4 +31,40 @@ describe('conditional', function() {
       assert.equal(template('<%= _if(fn, "foo", "bar") %>', imports)(context), 'bar');
     });
   });
+
+  describe('compare', function() {
+    it('should be true when values are equal', function() {
+      assert.equal(template('<%= compare("foo", "===", "foo") %>', imports)(context), 'true');
+      assert.equal(template('<%= compare("foo", "==", "foo") %>', imports)(context), 'true');
+    });
+
+    it('should be false when values are not equal', function() {
+      assert.equal(template('<%= compare("foo", "===", "bar") %>', imports)(context), 'false');
+      assert.equal(template('<%= compare("foo", "==", "bar") %>', imports)(context), 'false');
+    });
+  });
+
+  describe('is / eq', function() {
+    it('should be true when values are equal', function() {
+      assert.equal(template('<%= is("foo", "foo") %>', imports)(context), 'true');
+      assert.equal(template('<%= eq("foo", "foo") %>', imports)(context), 'true');
+    });
+
+    it('should be false when values are not equal', function() {
+      assert.equal(template('<%= is("foo", "bar") %>', imports)(context), 'false');
+      assert.equal(template('<%= eq("foo", "bar") %>', imports)(context), 'false');
+    });
+  });
+
+  describe('isnt / notEq', function() {
+    it('should be false when values are equal', function() {
+      assert.equal(template('<%= isnt("foo", "foo") %>', imports)(context), 'false');
+      assert.equal(template('<%= notEq("foo", "foo") %>', imports)(context), 'false');
+    });
+
+    it('should be true when values are not equal', function() {
+      assert.equal(template('<%= isnt("foo", "bar") %>', imports)(context), 'true');
+      assert.equal(template('<%= notEq("foo", "bar") %>', imports)(context), 'true');
+    });
+  });
 });

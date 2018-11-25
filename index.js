@@ -1,46 +1,40 @@
+'use strict';
+
 /*!
  * template-helpers <https://github.com/jonschlinkert/template-helpers>
  *
- * Copyright (c) 2015, Jon Schlinkert.
+ * Copyright (c) 2015-present, Jon Schlinkert.
  * Licensed under the MIT License.
  */
 
-'use strict';
+const helpers = require('./lib/helpers');
 
-/**
- * Expose helpers
- */
-
-module.exports = function(key) {
-  var lib = require('./lib');
-  var forIn = lib.object.forIn;
-  var helpers = {};
+module.exports = key => {
+  let res = {};
 
   if (typeof key === 'string') {
-    helpers = lib[key];
-    helpers[key] = helpers;
-    return helpers;
+    res = helpers[key];
+    res[key] = res;
+    return res;
   }
 
   if (Array.isArray(key)) {
-    return key.reduce(function(acc, k) {
-      acc[k] = lib[k];
-
-      forIn(acc[k], function(group, prop) {
-        acc[prop] = group;
-      });
-
+    return key.reduce((acc, k) => {
+      acc[k] = helpers[k];
+      for (let prop of Object.keys(acc[k])) {
+        acc[prop] = acc[k][prop];
+      }
       return acc;
     }, {});
   }
 
-  forIn(lib, function(group, prop) {
-    helpers[prop] = group;
+  for (let prop of Object.keys(helpers)) {
+    let group = helpers[prop];
+    res[prop] = group;
 
-    forIn(group, function(v, k) {
-      helpers[k] = v;
-    });
-  });
-
-  return helpers;
+    for (let k of Object.keys(group)) {
+      res[k] = group[k];
+    }
+  }
+  return res;
 };

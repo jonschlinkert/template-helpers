@@ -11,8 +11,7 @@ var path = require('path');
 var assert = require('assert');
 var template = require('lodash.template');
 var helpers = require('..')('path');
-
-var imports = {imports: helpers};
+var imports = { imports: helpers };
 
 describe('path helpers', function() {
   describe('dirname', function() {

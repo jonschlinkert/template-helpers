@@ -83,7 +83,7 @@ describe('objects', function() {
 
   describe('forOwn', function() {
     it('should expose the keys on an object.', function() {
-      var context = {values: {a: 'b', c: 'd'}}
+      var context = { values: { a: 'b', c: 'd' } };
       var actual = template('<% forOwn(values, function(val, key) { %><%= key %><% }) %>', imports)(context);
       assert.equal(actual, 'ac');
     });

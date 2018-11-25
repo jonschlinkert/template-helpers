@@ -7,11 +7,10 @@
 
 'use strict';
 
-var assert = require('assert');
-var template = require('lodash.template');
-var helpers = require('..')(['string', 'html']);
-
-var imports = {imports: helpers};
+const assert = require('assert');
+const template = require('lodash.template');
+const helpers = require('..')(['string', 'html']);
+const imports = { imports: helpers };
 
 describe('string helpers', function() {
   describe('lowercase', function() {
@@ -89,22 +88,10 @@ describe('string helpers', function() {
       assert.equal(template('<%= stripIndent() %>', imports)(), '');
     });
     it('should strip indentation from a string.', function() {
-      var str = template('<%= stripIndent(str) %>', imports)({str: [
-        '       - a',
-        '       - b',
-        '         * c',
-        '         * d',
-        '           + e',
-        '           + f'
-      ].join('\n')});
-      assert.equal(str, [
-        '- a',
-        '- b',
-        '  * c',
-        '  * d',
-        '    + e',
-        '    + f'
-      ].join('\n'));
+      var str = template('<%= stripIndent(str) %>', imports)({
+        str: ['       - a', '       - b', '         * c', '         * d', '           + e', '           + f'].join('\n')
+      });
+      assert.equal(str, ['- a', '- b', '  * c', '  * d', '    + e', '    + f'].join('\n'));
     });
   });
 

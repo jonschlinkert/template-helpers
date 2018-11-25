@@ -7,9 +7,9 @@
 
 'use strict';
 
-var assert = require('assert');
-var lib = require('..');
-var helpers;
+const assert = require('assert');
+const lib = require('..');
+let helpers;
 
 describe('helpers', function() {
   before(function() {
@@ -17,7 +17,7 @@ describe('helpers', function() {
   });
 
   it('should expose all helpers on main export', function() {
-    var keys = Object.keys(helpers);
+    let keys = Object.keys(helpers);
     assert(keys.length > 70);
   });
 
@@ -27,7 +27,7 @@ describe('helpers', function() {
   });
 
   it('should filter out array helpers when passed as an argument to lib', function() {
-    var array = lib('array');
+    let array = lib('array');
     assert(typeof array === 'object');
   });
 
@@ -37,7 +37,7 @@ describe('helpers', function() {
   });
 
   it('should filter out code helpers when passed as an argument to lib', function() {
-    var code = lib('code');
+    let code = lib('code');
     assert(typeof code === 'object');
   });
 
@@ -47,7 +47,7 @@ describe('helpers', function() {
   });
 
   it('should filter out collection helpers when passed as an argument to lib', function() {
-    var collection = lib('collection');
+    let collection = lib('collection');
     assert(typeof collection === 'object');
   });
 
@@ -57,7 +57,7 @@ describe('helpers', function() {
   });
 
   it('should filter out conditional helpers when passed as an argument to lib', function() {
-    var conditional = lib('conditional');
+    let conditional = lib('conditional');
     assert(typeof conditional === 'object');
   });
 
@@ -67,7 +67,7 @@ describe('helpers', function() {
   });
 
   it('should filter out fs helpers when passed as an argument to lib', function() {
-    var fs = lib('fs');
+    let fs = lib('fs');
     assert(typeof fs === 'object');
   });
 
@@ -77,7 +77,7 @@ describe('helpers', function() {
   });
 
   it('should filter out html helpers when passed as an argument to lib', function() {
-    var html = lib('html');
+    let html = lib('html');
     assert(typeof html === 'object');
   });
 
@@ -87,7 +87,7 @@ describe('helpers', function() {
   });
 
   it('should filter out math helpers when passed as an argument to lib', function() {
-    var math = lib('math');
+    let math = lib('math');
     assert(typeof math === 'object');
   });
 
@@ -97,7 +97,7 @@ describe('helpers', function() {
   });
 
   it('should filter out object helpers when passed as an argument to lib', function() {
-    var object = lib('object');
+    let object = lib('object');
     assert(typeof object === 'object');
   });
 
@@ -107,7 +107,7 @@ describe('helpers', function() {
   });
 
   it('should filter out path helpers when passed as an argument to lib', function() {
-    var path = lib('path');
+    let path = lib('path');
     assert(typeof path === 'object');
   });
 
@@ -117,14 +117,14 @@ describe('helpers', function() {
   });
 
   it('should filter out string helpers when passed as an argument to lib', function() {
-    var string = lib('string');
+    let string = lib('string');
     assert(typeof string === 'object');
     assert(typeof string.lower === 'function');
     assert(typeof string.upper === 'function');
   });
 
   it('should filter out an array of groups', function() {
-    var helpers = lib(['string', 'array']);
+    let helpers = lib(['string', 'array']);
     assert(typeof helpers === 'object');
     assert(typeof helpers.last === 'function');
     assert(typeof helpers.upper === 'function');

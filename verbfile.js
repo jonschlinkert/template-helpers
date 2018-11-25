@@ -1,11 +1,10 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var exists = require('fs-exists-sync');
-var link = require('markdown-link');
-var through = require('through2');
-var cache = {};
+const fs = require('fs');
+const path = require('path');
+const link = require('markdown-link');
+const through = require('through2');
+const cache = {};
 
 /**
  * TODO: externalize to `verb-generate-toc`
@@ -24,13 +23,13 @@ module.exports = function(verb, base, env) {
   });
 
   verb.task('toc', function(cb) {
-    var total = { categories: 0, helpers: 0 };
-    var sections = [];
-    var summary = [];
-    var methods = {};
-    var toc = [];
+    let total = { categories: 0, helpers: 0 };
+    let sections = [];
+    let summary = [];
+    let methods = {};
+    let toc = [];
 
-    return verb.src('lib/*.js')
+    return verb.src('lib/helpers/*.js')
       .pipe(through.obj(function(file, enc, next) {
         if (file.stem === 'index') {
           next();
@@ -40,8 +39,8 @@ module.exports = function(verb, base, env) {
         try {
           file.base = verb.cwd;
           file.code = require(file.path);
-          var heading = listItem(file);
-          var newFile = {
+          let heading = listItem(file);
+          let newFile = {
             methods: require(file.path),
             test: {
               path: path.join('test', file.basename),
@@ -58,10 +57,10 @@ module.exports = function(verb, base, env) {
             }
           };
 
-          var testLine = matchTest(newFile.test.path);
-          var codeLine = matchCode(newFile.path);
+          let testLine = matchTest(newFile.test.path);
+          let codeLine = matchCode(newFile.path);
 
-          for (var key in newFile.methods) {
+          for (let key in newFile.methods) {
             total.helpers++;
             if (newFile.methods.hasOwnProperty(key)) {
               newFile.data.methods[key] = {
@@ -86,16 +85,15 @@ module.exports = function(verb, base, env) {
           next(err);
         }
       }, function(next) {
-
-        verb.data({total: total});
-        verb.data({methods: methods});
+        verb.data({ total });
+        verb.data({ methods });
         next();
       }));
   });
 
   verb.task('sectionToc', function() {
-    var toc = '';
-    return verb.src('lib/*.js')
+    let toc = '';
+    return verb.src('lib/helpers/*.js')
       .pipe(through.obj(function(file, enc, next) {
         if (file.stem !== 'index') {
           file.base = verb.cwd;
@@ -105,7 +103,7 @@ module.exports = function(verb, base, env) {
         next();
       }, function(next) {
         // create an `include` from the toc
-        verb.include('toc.md', {content: toc});
+        verb.include('toc.md', { contents: Buffer.from(toc) });
         next();
       }))
       .pipe(verb.dest('.'));
@@ -114,10 +112,10 @@ module.exports = function(verb, base, env) {
   verb.task('fix-headings', function() {
     return verb.src('README.md')
       .pipe(through.obj(function(file, enc, next) {
-        var str = file.contents.toString();
+        let str = file.contents.toString();
         str = str.replace(/\n### index/, '');
         str = str.replace(/^(#{2,}\s*\[)\./gm, '$1');
-        file.contents = new Buffer(str);
+        file.contents = Buffer.from(str);
         next(null, file);
       }))
       .pipe(verb.dest('.'));
@@ -126,20 +124,19 @@ module.exports = function(verb, base, env) {
   verb.task('default', ['toc', 'readme', 'fix-headings']);
 };
 
-
 function section(name) {
-  return `## ${name}\n{%= apidocs("lib/${name}.js") %}`;
+  return `## ${name}\n{%= apidocs("lib/helpers/${name}.js") %}`;
 }
 
 function matchTest(fp) {
-  if (!fp || !exists(fp)) return function() {};
-  var str = fs.readFileSync(fp, 'utf8');
-  var lines = str.split('\n');
+  if (!fp || !fs.existsSync(fp)) return function() {};
+  let str = fs.readFileSync(fp, 'utf8');
+  let lines = str.split('\n');
   return function(method) {
-    var re = new RegExp('\\s*(describe|it)\\([\'"]\\.?(' + method + ')');
-    var len = lines.length, i = -1;
+    let re = new RegExp('\\s*(describe|it)\\([\'"]\\.?(' + method + ')');
+    let len = lines.length, i = -1;
     while (++i < len) {
-      var line = lines[i];
+      let line = lines[i];
       if (re.test(line)) {
         return i + 1;
       }
@@ -149,19 +146,18 @@ function matchTest(fp) {
 }
 
 function matchCode(fp) {
-  if (!fp || !exists(fp)) return function() {};
-  var str = fs.readFileSync(fp, 'utf8');
-  var lines = str.split('\n');
-  return function(method) {
-    var re = new RegExp('^exports\\.(' + method + ')', 'gm');
-    var len = lines.length, i = -1;
+  if (!fp || !fs.existsSync(fp)) return function() {};
+  let str = fs.readFileSync(fp, 'utf8');
+  let lines = str.split('\n');
+  return method => {
+    let re = new RegExp(`^exports\\.(${method})`, 'gm');
+    let len = lines.length, i = -1;
     while (++i < len) {
-      var line = lines[i];
+      let line = lines[i];
       if (re.test(line)) {
         return i + 1;
       }
     }
-    return;
   };
 }
 
@@ -171,13 +167,13 @@ function helpers(app) {
   });
 
   app.helper('issue', function(name) {
-    var repo = app.cache.data.repository;
+    let repo = app.cache.data.repository;
     return '[create issue](https://github.com/' + repo + '/issues/new?title=' + name + '%20helper)';
   });
 
   app.helper('sectionIssue', function(section) {
-    var repo = app.cache.data.repository;
-    var url = 'https://github.com/' + repo + '/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+';
+    let repo = app.cache.data.repository;
+    let url = 'https://github.com/' + repo + '/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+';
     return '[issues](' + url + section + '+helpers)';
   });
 
@@ -190,7 +186,7 @@ function helpers(app) {
   });
 
   app.helper('testLink', function(file) {
-    var line = file.test.line;
+    let line = file.test.line;
     return line ? codeLink('unit tests', file.test.path, line) : '[no tests]';
   });
 
@@ -206,3 +202,4 @@ function listItem(file) {
 function codeLink(title, path, start) {
   return link(title, path + '#L' + start);
 }
+
